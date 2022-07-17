@@ -1,0 +1,229 @@
+package com.example.demo;
+
+public class BC_MOD_BILLED_AMOUNT 
+{
+	String RAO_NAME,CIRCLE_CODE,CIRCLE_DESC, LOCATION_CODE, LOCATION_NAME, BILL_CYCLE_CODE,
+	BILL_MONTH, USAGE_CAT_NAME, CATEGORY, CUR_MONTH_BILLED_LPS, CUR_MONTH_BILLED_VAT, CUR_MONTH_BILLED_AMT, TOTAL_ENERGY_SOLD,
+	RATE, PREV_MONTH_BILLED_AMT, PREV_MONTH_ENERGY_SOLD,RATE1;
+
+	
+	public String getRAO_NAME() {
+		return RAO_NAME;
+	}
+
+
+	public void setRAO_NAME(String rAO_NAME) {
+		RAO_NAME = rAO_NAME;
+	}
+
+
+	public String getCIRCLE_CODE() {
+		return CIRCLE_CODE;
+	}
+
+
+	public void setCIRCLE_CODE(String cIRCLE_CODE) {
+		CIRCLE_CODE = cIRCLE_CODE;
+	}
+
+
+	public String getCIRCLE_DESC() {
+		return CIRCLE_DESC;
+	}
+
+
+	public void setCIRCLE_DESC(String cIRCLE_DESC) {
+		CIRCLE_DESC = cIRCLE_DESC;
+	}
+
+
+	public String getLOCATION_CODE() {
+		return LOCATION_CODE;
+	}
+
+
+	public void setLOCATION_CODE(String lOCATION_CODE) {
+		LOCATION_CODE = lOCATION_CODE;
+	}
+
+
+	public String getLOCATION_NAME() {
+		return LOCATION_NAME;
+	}
+
+
+	public void setLOCATION_NAME(String lOCATION_NAME) {
+		LOCATION_NAME = lOCATION_NAME;
+	}
+
+
+	public String getBILL_CYCLE_CODE() {
+		return BILL_CYCLE_CODE;
+	}
+
+
+	public void setBILL_CYCLE_CODE(String bILL_CYCLE_CODE) {
+		BILL_CYCLE_CODE = bILL_CYCLE_CODE;
+	}
+
+
+	public String getBILL_MONTH() {
+		return BILL_MONTH;
+	}
+
+
+	public void setBILL_MONTH(String bILL_MONTH) {
+		BILL_MONTH = bILL_MONTH;
+	}
+
+
+	public String getUSAGE_CAT_NAME() {
+		return USAGE_CAT_NAME;
+	}
+
+
+	public void setUSAGE_CAT_NAME(String uSAGE_CAT_NAME) {
+		USAGE_CAT_NAME = uSAGE_CAT_NAME;
+	}
+
+
+	public String getCATEGORY() {
+		return CATEGORY;
+	}
+
+
+	public void setCATEGORY(String cATEGORY) {
+		CATEGORY = cATEGORY;
+	}
+
+
+	public String getCUR_MONTH_BILLED_LPS() {
+		return CUR_MONTH_BILLED_LPS;
+	}
+
+
+	public void setCUR_MONTH_BILLED_LPS(String cUR_MONTH_BILLED_LPS) {
+		CUR_MONTH_BILLED_LPS = cUR_MONTH_BILLED_LPS;
+	}
+
+
+	public String getCUR_MONTH_BILLED_VAT() {
+		return CUR_MONTH_BILLED_VAT;
+	}
+
+
+	public void setCUR_MONTH_BILLED_VAT(String cUR_MONTH_BILLED_VAT) {
+		CUR_MONTH_BILLED_VAT = cUR_MONTH_BILLED_VAT;
+	}
+
+
+	public String getCUR_MONTH_BILLED_AMT() {
+		return CUR_MONTH_BILLED_AMT;
+	}
+
+
+	public void setCUR_MONTH_BILLED_AMT(String cUR_MONTH_BILLED_AMT) {
+		CUR_MONTH_BILLED_AMT = cUR_MONTH_BILLED_AMT;
+	}
+
+
+	public String getTOTAL_ENERGY_SOLD() {
+		return TOTAL_ENERGY_SOLD;
+	}
+
+
+	public void setTOTAL_ENERGY_SOLD(String tOTAL_ENERGY_SOLD) {
+		TOTAL_ENERGY_SOLD = tOTAL_ENERGY_SOLD;
+	}
+
+
+	public String getRATE() {
+		return RATE;
+	}
+
+
+	public void setRATE(String rATE) {
+		RATE = rATE;
+	}
+
+
+	public String getPREV_MONTH_BILLED_AMT() {
+		return PREV_MONTH_BILLED_AMT;
+	}
+
+
+	public void setPREV_MONTH_BILLED_AMT(String pREV_MONTH_BILLED_AMT) {
+		PREV_MONTH_BILLED_AMT = pREV_MONTH_BILLED_AMT;
+	}
+
+
+	public String getPREV_MONTH_ENERGY_SOLD() {
+		return PREV_MONTH_ENERGY_SOLD;
+	}
+
+
+	public void setPREV_MONTH_ENERGY_SOLD(String pREV_MONTH_ENERGY_SOLD) {
+		PREV_MONTH_ENERGY_SOLD = pREV_MONTH_ENERGY_SOLD;
+	}
+
+
+	public String getRATE1() {
+		return RATE1;
+	}
+
+
+	public void setRATE1(String rATE1) {
+		RATE1 = rATE1;
+	}
+
+
+	public BC_MOD_BILLED_AMOUNT(String rAO_NAME, String cIRCLE_CODE, String cIRCLE_DESC, String lOCATION_CODE,
+			String lOCATION_NAME, String bILL_CYCLE_CODE, String bILL_MONTH, String uSAGE_CAT_NAME, String cATEGORY,
+			String cUR_MONTH_BILLED_LPS, String cUR_MONTH_BILLED_VAT, String cUR_MONTH_BILLED_AMT,
+			String tOTAL_ENERGY_SOLD, String rATE, String pREV_MONTH_BILLED_AMT, String pREV_MONTH_ENERGY_SOLD,
+			String rATE1) {
+		super();
+		RAO_NAME = rAO_NAME;
+		CIRCLE_CODE = cIRCLE_CODE;
+		CIRCLE_DESC = cIRCLE_DESC;
+		LOCATION_CODE = lOCATION_CODE;
+		LOCATION_NAME = lOCATION_NAME;
+		BILL_CYCLE_CODE = bILL_CYCLE_CODE;
+		BILL_MONTH = bILL_MONTH;
+		USAGE_CAT_NAME = uSAGE_CAT_NAME;
+		CATEGORY = cATEGORY;
+		CUR_MONTH_BILLED_LPS = cUR_MONTH_BILLED_LPS;
+		CUR_MONTH_BILLED_VAT = cUR_MONTH_BILLED_VAT;
+		CUR_MONTH_BILLED_AMT = cUR_MONTH_BILLED_AMT;
+		TOTAL_ENERGY_SOLD = tOTAL_ENERGY_SOLD;
+		RATE = rATE;
+		PREV_MONTH_BILLED_AMT = pREV_MONTH_BILLED_AMT;
+		PREV_MONTH_ENERGY_SOLD = pREV_MONTH_ENERGY_SOLD;
+		RATE1 = rATE1;
+	}
+
+
+	@Override
+	public String toString() {
+		return "BC_MOD_BILLED_AMOUNT [RAO_NAME=" + RAO_NAME + ", CIRCLE_CODE=" + CIRCLE_CODE + ", CIRCLE_DESC="
+				+ CIRCLE_DESC + ", LOCATION_CODE=" + LOCATION_CODE + ", LOCATION_NAME=" + LOCATION_NAME
+				+ ", BILL_CYCLE_CODE=" + BILL_CYCLE_CODE + ", BILL_MONTH=" + BILL_MONTH + ", USAGE_CAT_NAME="
+				+ USAGE_CAT_NAME + ", CATEGORY=" + CATEGORY + ", CUR_MONTH_BILLED_LPS=" + CUR_MONTH_BILLED_LPS
+				+ ", CUR_MONTH_BILLED_VAT=" + CUR_MONTH_BILLED_VAT + ", CUR_MONTH_BILLED_AMT=" + CUR_MONTH_BILLED_AMT
+				+ ", TOTAL_ENERGY_SOLD=" + TOTAL_ENERGY_SOLD + ", RATE=" + RATE + ", PREV_MONTH_BILLED_AMT="
+				+ PREV_MONTH_BILLED_AMT + ", PREV_MONTH_ENERGY_SOLD=" + PREV_MONTH_ENERGY_SOLD + ", RATE1=" + RATE1
+				+ "]";
+	}
+
+
+	public BC_MOD_BILLED_AMOUNT() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+
+	
+	
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>iConverge</title>
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/sidebar-themes.css">
+    <link rel="stylesheet" href="../css/form-style.css">
+
+    <!-- datatable link  -->
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style type="text/css">
+/* table border  */
+table, tr, th, td {
+    border: 1px solid black;
+  }
+
+.table{
+	width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+  
+ /* index description center   */
+.center{
+    margin-left: 62vh;
+    display: inline;
+}
+
+</style>
+</head>
+
+<body>
+    <div class="page-wrapper default-theme  bg1 toggled">
+        <span th:remove="tag" th:utext="${dataHtml}"></span>
+
+        
+        <!-- page-content  -->
+        <main class="page-content">
+            <div id="overlay" class="overlay"></div>
+            <div class="container-fluid" style="padding: 0px; ">
+                <div class="title-bar"
+                    style="height: 90px; background-image: url(../img/bn.jpeg) !important;background-repeat: no-repeat;width: 100%;height: 100%;background-size: cover;">
+                    <a id="toggle-sidebar" class="btn btn-secondary rounded-0" href="#"
+                        style="margin: 20px; background: #3ab54a;">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-list" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                            </svg></span>
+                    </a>
+                </div>
+                <div class="container">
+					<form th:action="@{/IC_ES_Z_C_COM_OPR_STAT_BPDB_CR_MON}" method="post"
+						th:object="${reportModel}">
+						<div class="card mt-5 mb-5">
+							<div class="row pt-4 pb-4 card-body">
+								
+								
+								<div class="col-lg-1 col-md-2 col-sm-12 mt-3 text-center">
+									<label for="bill" class="">Month :</label>
+								</div>
+								<div class="col-lg-2 col-md-3 col-sm-12">
+									<select id="two" class="form-control" name="two">
+										<option value="">Select Month</span></option>
+
+										<option th:each="b : ${billList}"
+											th:value="${b.BILL_CYCLE_CODE}"
+											th:text="${b.BILL_CYCLE_DESC}"
+											th:selected="${b.BILL_CYCLE_CODE}==${reportModel.two}"></option>
+									</select>
+								</div>
+								<div class="col-lg-2 col-md-2 col-sm-12 text-center">
+									<input type="submit" value="Submit"
+										class="btn btn-lg btn-success mr-1 mb-1" />
+								</div>
+								<div class="col-lg-2 col-md-2 col-sm-12 text-center">
+								<input type="button"
+						class="btn btn-lg btn-danger mr-1 mb-1"
+						id="printme" value="Print" onclick="printContent('divName')" />
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+                <div id="divName" class="container" >
+                <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 style="text-align: center;"><b>Bangladesh Power Development Board</b></h3>
+                <p style="text-align: center; text-decoration: underline;">Circle wise Commercial Operation Statistics  <span th:text="${month}"></span> of Distribution Zones</p>
+                <table class="table mt-4" style="text-align: center;">
+                    <tr style="background-color:#ECD8FD">
+                        <th rowspan="2">Zone</th>
+                        <th rowspan="2">Circle</th>
+                        <th rowspan="2">No. of <br> active <br> Consumers</th>
+                        <th rowspan="2">Imported <br>(MKwh)</th>
+                        <th rowspan="2">Sale <br>(MKwh)</th>
+                        <th rowspan="2">Dist. Sys. <br> Loss(%)</th>
+                        <th rowspan="2">Net <br> Bill <br>(MTK.)</th>
+                        <th rowspan="2">Net <br> Coll <br>(MTK.)</th>
+                        <th rowspan="2">C/B Ratio (%)</th>
+                        <th rowspan="2">C/I Ratio (%) </th>
+                        <th rowspan="2">Billing Rate <br>(Tk./Kwh)</th>
+                        <th colspan="2">Receivable</th>
+                    </tr>
+
+                    <tr style="background-color:#ECD8FD">
+                        <td><span>(MTk.)</span></td>
+                        <td><span>Equ. Month</span></td>  
+                    </tr>
+
+                   
+                    <tr th:each="i : ${c_COM_OPR_STAT_BPDB_CR_MONs}" style="text-align: center;"  th:style="${i.CIRCLE_NAME=='Zone Total'} ? 'background-color: #11c7e0;font-weight: bold;' : (${i.CIRCLE_NAME =='Sub Total' } ? 'background-color: #7BCC0B;font-weight: bold;' : (${i.CIRCLE_NAME =='Total' } ? 'background-color: #FF9900;font-weight: bold;' : 'background-color: #fff' ) ) ">
+                        <th th:text="${i.ZONE_NAME}"></th>
+                        <td th:text="${i.CIRCLE_NAME}"></td>
+                        <td th:text="${i.NO_OF_ACTIVE_CONS}"></td>
+                        <td th:text="${i.IMPORT_MKWH}"></td>
+                        <td th:text="${i.SALE_MKWH}"></td>
+                        <td th:text="${i.DIST_SYS_LOSS}"></td>
+                        <td th:text="${i.NET_BILL_MTK}"></td>
+                        <td th:text="${i.NET_COLL_MTK}"></td>
+                        <td th:text="${i.CB_RATIO}"></td>
+                        <td th:text="${i.CI_RATIO}"></td>
+                        <td th:text="${i.BILL_RATE}"></td>
+                        <td th:text="${i.REC_AMT}"></td>
+                        <td th:text="${i.EQM}"></td>
+                    </tr>
+                   
+                </table>
+            </div>
+        </div>
+    
+    </div>
+                </div>
+            </div>
+        </main>
+        <!-- page-content" -->
+    </div>
+    <!-- page-wrapper -->
+
+    <!-- using online scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+        </script>
+    <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- using local scripts -->
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+
+    <script src="../js/main.js"></script>
+    <!-- datatable script  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+</body>
+
+</html>

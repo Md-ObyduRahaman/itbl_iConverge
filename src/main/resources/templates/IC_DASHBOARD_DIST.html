@@ -1,0 +1,3413 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+	content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+<title>iConverge</title>
+
+<!-- using online links -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+	integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+<!-- CSS only -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+<!-- CSS only -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+
+<!-- using local links -->
+<!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/sidebar-themes.css">
+<link rel="stylesheet" href="../css/form-style.css">
+
+<!-- datatable link  -->
+<link
+	href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"
+	rel="stylesheet" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- print div scripts starts -->
+
+<script type="text/javascript">
+	function printDiv() {
+
+		//var user = document.getElementById("user").innerText;
+
+		var r = document.getElementById("report");
+		var r_text = r.options[r.selectedIndex].text;
+
+		var z = document.getElementById("zone");
+		var z_text = z.options[z.selectedIndex].text;
+		if (z_text === "Select Zone") {
+			z_text = "  ";
+		}
+
+		var c = document.getElementById("circle");
+		var c_text = c.options[c.selectedIndex].text;
+		if (c_text === "Select Circle") {
+			c_text = "  ";
+		}
+
+		var d = document.getElementById("div");
+		var d_text = d.options[d.selectedIndex].text;
+		if (d_text === "Select S&D") {
+			d_text = "  ";
+		}
+
+		var l = document.getElementById("loc");
+		var l_text = l.options[l.selectedIndex].text;
+		if (l_text === "Select Loc") {
+			l_text = "  ";
+		}
+
+		var divToPrint = document.getElementById('DivIdToPrint');
+
+		var newWin = window.open('', 'Print-Window');
+
+		newWin.document.open();
+
+		newWin.document
+				.write('<html> <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"crossorigin="anonymous">');
+		newWin.document
+				.write('<style> *{font-size: 16px;} .fig1{  height: 60%!important} .dt-button{display:none!important;} #table1{border: 1px solid black; width: 80%!important; height: 70%!important;} </style>');
+		newWin.document
+				.write('<body onload="window.print()"> <div class="float-right" style="font-size: 18px">User : ITBL</div> <div class="text-center"> <img style="margin-left: 150px" src="./img/logo.jpg" alt="" height="80px" width="80px"> <h1 style="font-size:22px;">Bangladesh Power Development Board</h1> </div>');
+		//newWin.document.write('<body onload="window.print()"> <div class="float-right" style="font-size: 18px">User : '+ user +'</div> <div class="text-center"> <img style="margin-left: 150px" src="./image/Logo.png" alt="" height="80px" width="80px"> <h1 style="font-size:22px;">Bangladesh Power Development Board</h1> </div>');
+		//   newWin.document.write('<div style="text-align:center; font-size: 20px;">SAIDI: System Average Interruption Duration Index</div>');
+		//   newWin.document.write('<div style="text-align:center; font-size: 20px;">SAIFI: System Average Interruption Frequency Index</div>');
+		newWin.document
+				.write('<div style="text-align:center; font-size: 20px;">Distribution Performance Report</div>');
+		newWin.document
+				.write('<div style="text-align:center; font-size: 20px;">Report Level :'
+						+ r_text + '</div>');
+
+		newWin.document
+				.write('<div style="text-align:center; font-size: 20px;">Zone :'
+						+ z_text
+						+ ' Circle : '
+						+ c_text
+						+ ' Div : '
+						+ d_text
+						+ ' Loc/Esu : ' + l_text + '</div>');
+
+		newWin.document.write(divToPrint.innerHTML);
+
+		newWin.document.write('</body></html>');
+
+		newWin.document.close();
+
+		setTimeout(function() {
+			newWin.close();
+		}, 10);
+
+	}
+</script>
+<!-- print div script ends -->
+<style>
+fieldset {
+	overflow: hidden
+}
+
+.some-class {
+	float: left;
+	clear: none;
+}
+
+label {
+	float: left;
+	clear: none;
+	display: block;
+	padding: 0px 1em 0px 8px;
+}
+
+input[type=radio], input.radio {
+	float: left;
+	clear: none;
+	margin: 2px 0 0 2px;
+}
+</style>
+
+
+</head>
+
+<body>
+	<div class="page-wrapper default-theme  bg1 toggled">
+		<span th:remove="tag" th:utext="${dataHtml}"></span>
+
+
+		<!-- page-content  -->
+		<main class="page-content" style="background: #112d4e;">
+			<div id="overlay" class="overlay"></div>
+			<div class="container-fluid" style="padding: 0px;">
+				<div class="title-bar"
+					style="height: 90px; background-image: url(../img/bn.jpeg) !important; background-repeat: no-repeat; width: 100%; height: 100%; background-size: cover;">
+					<a id="toggle-sidebar" class="btn btn-secondary rounded-0" href="#"
+						style="margin: 20px; background: #3ab54a;"> <span><svg
+								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+									d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                            </svg></span>
+					</a>
+				</div>
+				<div class="container">
+					<div class="card"
+						style="background: #dee669; margin: 10px; padding: 10px">
+						<form class="form-inline" method="post" action="#"
+							th:action="@{/IC_DASHBOARD_DIST}" th:object="${xyz}"
+							style="display: block;">
+
+							<div class="row">
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<div class="row">
+										<div class="col-lg-3 col-md-3 col-sm-12">
+											<label for="text" class="text-center m-2">Zone:</label>
+										</div>
+										<div class="col-lg-9 col-md-9 col-sm-12">
+											<select id="zone" class="form-control" name="zone">
+												<option value="">Select Zone</option>
+												<option th:each="zone : ${listIC_ZONE_MST}"
+													th:value="${zone.ZONE_CODE}" th:text="${zone.ZONE_NAME}"
+													th:selected="(${zone.ZONE_CODE} == ${xyz.zone})"></option>
+
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<div class="row">
+										<div class="col-lg-3 col-md-3 col-sm-12">
+											<label for="text" class="text-center m-2">Circle:</label>
+										</div>
+										<div class="col-lg-9 col-md-9 col-sm-12">
+											<select id="circle" class="form-control" name="circle">
+
+												<option value="">Select Circle</option>
+												<option th:each="circle : ${circleList}"
+													th:value="${circle.CIRCLE_CODE}"
+													th:text="${circle.CIRCLE_NAME}"
+													th:selected="${circle.CIRCLE_CODE}==*{circle}"></option>
+
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<div class="row">
+										<div class="col-lg-3 col-md-3 col-sm-12">
+											<label for="text" class="text-center m-2">S&D:</label>
+										</div>
+										<div class="col-lg-9 col-md-9 col-sm-12">
+											<select id="div" class="form-control" name="div">
+												<option value="">Select S&D</option>
+
+												<option th:each="d : ${divList}" th:value="${d.DIV_CODE}"
+													th:text="${d.DIV_NAME}"
+													th:selected="(${d.DIV_CODE} == *{div})"></option>
+
+											</select>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<div class="row">
+										<div class="col-lg-3 col-md-3 col-sm-12">
+											<label for="text" class="text-center m-2">Loc/Esu:</label>
+										</div>
+										<div class="col-lg-9 col-md-9 col-sm-12">
+											<select id="loc" class="form-control" name="loc">
+												<option value="">Select Loc</option>
+
+												<option th:each="l : ${locList}"
+													th:value="${l.LOCATION_CODE}" th:text="${l.LOCATION_NAME}"
+													th:selected="(${l.LOCATION_CODE} == *{loc})"></option>
+
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<div class="row">
+										<div class="col-lg-3 col-md-3 col-sm-12">
+											<label for="text" class="text-center m-2">Month:</label>
+										</div>
+										<div class="col-lg-9 col-md-9 col-sm-12">
+											<select id="bill" class="form-control" name="bill">
+												<option value="">Select Month</option>
+
+												<option th:each="b : ${billList}"
+													th:value="${b.BILL_CYCLE_CODE}"
+													th:text="${b.BILL_CYCLE_DESC}"
+													th:selected="${b.BILL_CYCLE_CODE}==*{bill}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<div class="row">
+										<div class="col-lg-3 col-md-3 col-sm-12">
+											<label for="text" class="text-center m-2">Report
+												Level:</label>
+										</div>
+										<div class="col-lg-9 col-md-9 col-sm-12">
+											<select id="report" class="form-control" name="report"
+												required>
+												<option value="">Select Report</option>
+
+												<option th:each="r : ${listIC_REPORT_LEVEL_MST}"
+													th:value="${r.REPORT_LEVEL_CODE}"
+													th:text="${r.REPORT_LEVEL_DESC}"
+													th:selected="${r.REPORT_LEVEL_CODE}==*{report}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row ">
+
+								<fieldset>
+									<div class="some-class">
+										<label class="radio-inline"> <input type="radio"
+											name="optradio" class="radio" checked value="single">Graph
+										</label> <label class="radio-inline"> <input type="radio"
+											name="optradio" class="radio" value="both">Data
+										</label>
+
+									</div>
+
+								</fieldset>
+								<div class="col-lg-4 col-md-4 col-sm-12 "></div>
+
+								<div class="col-lg-4 col-md-4 col-sm-12 text-center">
+									<input type="submit" value="Load"
+									class="btn btn-lg btn-success mr-1 mb-1" />
+									<input type='button' id='btn' value='Print'
+                                 class="btn btn-lg btn-primary mr-1 mb-1 "
+                                 onclick="printContent('divName')" />
+								</div>
+
+								<div class="col-lg-4 col-md-4 col-sm-12 text-center"></div>
+
+							</div>
+
+				</form>
+
+
+
+			</div>
+			<div>
+				<!-- print div starts  -->
+				<div id="divName">
+					<!-- chart start -->
+
+
+					<div>
+
+						<!--      chart start (R) -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 1st chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 420px; border-radius: 10px; margin: 0 auto;"
+								id="row1">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise System Loss(Current
+									Month)
+								</h5>
+								<div id="chart_div1"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 1st chart end -->
+							<!-- 2nd chart start -->
+							<div class="card col-md-5 fig1"
+								style="height: 420px; border-radius: 10px; margin-left: 50px;"
+								id="row2">
+								<h5 class="card-header">
+									<span th:text="${hdr2_graph}"></span> Wise System Loss(Upto <span th:text="*{month}"></span>)
+								</h5>
+								<div id="chart_div2"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 2nd chart end -->
+
+
+						</div>
+						<!--      chart end (R) -->
+
+
+
+						<!--    dpd_Sys_loss  table start (R) -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 1st chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 500px; border-radius: 10px; margin: 0 auto;"
+								id="row3">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr1_graph}"></span> Wise System Loss(Current
+									Month)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table2">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr2_table}"></th>
+											<th scope="col">Net Import(kwh)</th>
+											<th scope="col">Billed Unit</th>
+											<th scope="col">System Loss</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.NET_IMPORT_KWH}"></td>
+											<td th:text="${t.BILLED_UNIT}"></td>
+											<td th:text="${t.SYS_LOSS}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 1st chart end -->
+							<!-- 2nd chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 500px; border-radius: 10px; margin-left: 50px;"
+								id="row4">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr41_table}"></span> Wise System Loss(Upto <span th:text="*{month}"></span>)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table41">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr41_table}"></th>
+											<th scope="col">Net Import(kwh)</th>
+											<th scope="col">Billed Unit</th>
+											<th scope="col">System Loss</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList1}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.NET_IMPORT_KWH}"></td>
+											<td th:text="${t.BILLED_UNIT}"></td>
+											<td th:text="${t.SYS_LOSS}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 2nd chart end -->
+
+						</div>
+						<!--      dpd_Sys_loss tABLE end (R) -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<!--      chart start (R) -->
+
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 3rd chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 420px; border-radius: 10px; margin: 0 auto;"
+								id="row5">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise CI Ratio(Current
+									Month)
+								</h5>
+								<div id="chart_div3"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 3rd chart end -->
+							<!-- 4th chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 420px; border-radius: 10px; margin-left: 50px;"
+								id="row6">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise CI Ratio(Upto <span th:text="*{month}"></span>)
+								</h5>
+								<div id="chart_div4"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 4th chart end -->
+
+
+						</div>
+
+
+
+						<!--      table start  CI Ratio(R) -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 1st chart start -->
+
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 500px; border-radius: 10px; margin: 0 auto;"
+								id="row7">
+
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr42_table}"></span> Wise CI Ratio(Current
+									Month)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table42">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr42_table}"></th>
+											<th scope="col">Net Import(kwh)</th>
+											<th scope="col">Collection Amount</th>
+											<th scope="col">Billed Amount</th>
+											<th scope="col">Billed Unit</th>
+											<th scope="col">CI Ratio</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList42}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.NET_IMPORT_KWH}"></td>
+											<td th:text="${t.COLL_AMT}"></td>
+											<td th:text="${t.BILLED_AMT}"></td>
+											<td th:text="${t.BILLED_UNIT}"></td>
+											<td th:text="${t.CI_RATIO}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+
+							<!-- 1st chart end -->
+							<!-- 2nd chart start -->
+
+							<!-- 							<div class="col-md-1"></div> -->
+							<div class="card col-md-5 fig1"
+								style="height: 500px; border-radius: 10px; margin-left: 50px;"
+								id="row8">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr43_table}"></span> Wise CI Ratio(Upto <span th:text="*{month}"></span>)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table43">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr43_table}"></th>
+											<th scope="col">Net Import(kwh)</th>
+											<th scope="col">Collection Amount</th>
+											<th scope="col">Billed Amount</th>
+											<th scope="col">Billed Unit</th>
+											<th scope="col">CI Ratio</th>
+
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList43}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.NET_IMPORT_KWH}"></td>
+											<td th:text="${t.COLL_AMT}"></td>
+											<td th:text="${t.BILLED_AMT}"></td>
+											<td th:text="${t.BILLED_UNIT}"></td>
+											<td th:text="${t.CI_RATIO}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 2nd chart end -->
+
+
+						</div>
+						<!--     CI Ratio tABLE end (R) -->
+
+						<div style="break-after: page"></div>
+						<!--      chart end (R) -->
+
+
+						<!--      chart start (R) -->
+
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 5th chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 420px; border-radius: 10px; margin: 0 auto;"
+								id="row9">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise CB Ratio(Current
+									Month)
+								</h5>
+								<div id="chart_div5"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- <img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 5th chart end -->
+							<!-- 6th chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 420px; border-radius: 10px; margin-left: 50px;"
+								id="row10">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise CB Ratio(Upto <span th:text="*{month}"></span>)
+								</h5>
+								<div id="chart_div6"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 6th chart end -->
+
+						</div>
+						<!--      chart end (R) -->
+
+
+
+						<!--    dpd_CB_Ratio  table start (R) -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 1st chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 500px; border-radius: 10px; margin: 0 auto;"
+								id="row11">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr44_table}"></span> Wise CB Ratio(Current
+									Month)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table44">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr44_table}"></th>
+											<th scope="col">Collection Amount</th>
+											<th scope="col">Billed Amount</th>
+											<th scope="col">CB Ratio</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList44}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.COLL_AMT}"></td>
+											<td th:text="${t.BILLED_AMT}"></td>
+											<td th:text="${t.CB_RATIO}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 1st chart end -->
+							<!-- 2nd chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 500px; border-radius: 10px; margin-left: 50px;"
+								id="row12">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr45_table}"></span> Wise CB Ratio(Upto <span th:text="*{month}"></span>)     
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table45">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr45_table}"></th>
+											<th scope="col">Collection Amount</th>
+											<th scope="col">Billed Amount</th>
+											<th scope="col">CB Ratio</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList45}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.COLL_AMT}"></td>
+											<td th:text="${t.BILLED_AMT}"></td>
+											<td th:text="${t.CB_RATIO}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 2nd chart end -->
+
+						</div>
+						<!-- dpd_CB_Ratio tABLE end (R) -->
+
+
+
+
+
+
+
+						<!--      chart start (R) -->
+
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+
+							<!-- 8th chart start -->
+							<div class="card col-md-5 fig1 m-0 "
+								style="height: 420px; border-radius: 10px; margin-left: 50px;"
+								id="row13">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise Billed Unit(Current
+									Month)
+								</h5>
+								<div id="chart_div8"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 8th chart end -->
+
+
+
+							<!-- 9th chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 420px; border-radius: 10px; margin: 0 auto;"
+								id="row14">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise Billed Unit(Upto <span th:text="*{month}"></span>)
+								</h5>
+								<div id="chart_div9"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+						</div>
+						<!-- 9th chart end -->
+
+
+						<!--    dpd_BILLED_UNIT  table start (R) -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 1st chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 500px; border-radius: 10px; margin: 0 auto;"
+								id="row15">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr46_table}"></span> Wise Billed Unit(Current
+									Month)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table46">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr46_table}"></th>
+											<!-- 											<th scope="col">System Loss</th> -->
+											<!-- 											<th scope="col">Net Import(kwh)</th> -->
+											<th scope="col">Billed Unit</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList46}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<!-- 											<td th:text="${t.SYS_LOSS}"></td> -->
+											<!-- 											<td th:text="${t.NET_IMPORT_KWH}"></td> -->
+											<td th:text="${t.BILLED_UNIT}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 1st chart end -->
+							<!-- 2nd chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 500px; border-radius: 10px; margin-left: 50px;"
+								id="row16">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr47_table}"></span> Wise Billed Unit(Upto <span th:text="*{month}"></span>)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table47">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr47_table}"></th>
+											<!-- 											<th scope="col">System Loss</th> -->
+											<!-- 											<th scope="col">Net Import(kwh)</th> -->
+											<th scope="col">Billed Unit</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList47}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<!-- 											<td th:text="${t.SYS_LOSS}"></td> -->
+											<!-- 											<td th:text="${t.NET_IMPORT_KWH}"></td> -->
+											<td th:text="${t.BILLED_UNIT}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 2nd chart end -->
+
+						</div>
+						<!-- dpd_BILLED_UNIT tABLE end (R) -->
+
+
+
+
+						<div style="break-after: page"></div>
+
+						<!-- dpd_BILLED_amt_CM chart start -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<div class="card col-md-5 fig1 m-0 "
+								style="height: 420px; border-radius: 10px; margin-left: 50px;"
+								id="row17">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise Billed
+									Amount(Current Month)
+								</h5>
+								<div id="chart_div13"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- dpd_BILLED_amt_CM chart end -->
+
+
+
+							<!-- dpd_BILLED_amt_UP chart start -->
+							<div class="card col-md-5 fig1  "
+								style="height: 420px; border-radius: 10px; margin-left: 50px;"
+								id="row18">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise Billed Amount( Upto <span th:text="*{month}"></span>)
+								</h5>
+								<div id="chart_div14"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+						</div>
+						<!-- dpd_BILLED_amt_UP chart end -->
+
+						<!--    dpd_BILLED_amt   table start (R) -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 1st chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 500px; border-radius: 10px; margin: 0 auto;"
+								id="row19">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr48_table}"></span> Wise Billed
+									Amount(Current Month)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table48">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr48_table}"></th>
+											<th scope="col">Billed Amount</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList48}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.BILLED_AMT}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 1st chart end -->
+							<!-- 2nd chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 500px; border-radius: 10px; margin-left: 50px;"
+								id="row20">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr49_table}"></span> Wise Billed Amount(Upto <span th:text="*{month}"></span>)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table49">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr49_table}"></th>
+											<th scope="col">Billed Amount</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList49}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.BILLED_AMT}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 2nd chart end -->
+
+						</div>
+						<!-- dpd_BILLED_amt tABLE end (R) -->
+
+
+
+
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 9th chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 420px; border-radius: 10px; margin: 0 auto;"
+								id="row21">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise Collection
+									Amount(Current Month)
+								</h5>
+								<div id="chart_div10"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 9th chart end -->
+							<!-- 10th chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 420px; border-radius: 10px; margin-left: 50px;"
+								id="row22">
+								<h5 class="card-header">
+									<span th:text="${hdr2_graph}"></span> Wise Collection
+									Amount(Upto <span th:text="*{month}"></span>)
+								</h5>
+								<div id="chart_div11"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+							<!-- 10th chart end -->
+
+
+
+
+
+						</div>
+						<!--      chart end (R) -->
+
+
+						<!--   dpd_COLL_amt  table start (R) -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 1st chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 500px; border-radius: 10px; margin: 0 auto;"
+								id="row23">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr50_table}"></span> Wise Collection
+									Amount(Current Month)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table50">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr50_table}"></th>
+											<th scope="col">Collection Amount</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList50}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.COLL_AMT}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 1st chart end -->
+							<!-- 2nd chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 500px; border-radius: 10px; margin-left: 50px;"
+								id="row24">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr51_table}"></span> Wise Collection
+									Amount(Upto <span th:text="*{month}"></span>)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table51">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr51_table}"></th>
+											<th scope="col">Collection Amount</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList51}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.COLL_AMT}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 2nd chart end -->
+
+						</div>
+						<!-- dpd_COLL_amt tABLE end (R) -->
+
+						<div style="break-after: page"></div>
+						<!--      chart end (R) -->
+
+						<!--      chart start (R) -->
+
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 7th chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 420px; border-radius: 10px; margin: 0 auto;"
+								id="row25">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise Equivalent
+									Month(Current Month)
+								</h5>
+								<div id="chart_div7"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+
+
+							<!-- 10th chart end -->
+
+							<div class="card col-md-5 fig1 "
+								style="height: 420px; border-radius: 10px; margin: 0 auto;"
+								id="row26">
+								<h5 class="card-header">
+									<span th:text="${hdr1_graph}"></span> Wise Equivalent
+									Month(Upto <span th:text="*{month}"></span>)
+								</h5>
+								<div id="chart_div12"
+									style="height: 400px; border-radius: 10px; margin: 0 auto;"></div>
+								<div id="chart_div_empty"
+									style="height: 150px; border-radius: 10px; margin: 0 auto;">
+									<!-- 									<img src="image/grp.jpg" class="w3-border w3-padding" alt="No data Found" style="width:60%; display: block;margin-left: auto; margin-right: auto;"> -->
+								</div>
+							</div>
+
+
+
+						</div>
+
+						<!--      chart end (R) -->
+
+						<!--   dpd_EQ_MONTH  table start (R) -->
+						<div class="row ml-2 mt-4">
+							<div class="col-md-1"></div>
+							<!-- 1st chart start -->
+							<div class="card col-md-5 fig1 m-0"
+								style="height: 500px; border-radius: 10px; margin: 0 auto;"
+								id="row27">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr52_table}"></span> Wise Equivalent
+									Month(Current Month)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table52">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr52_table}"></th>
+											<th scope="col">Net Import(KWH)</th>
+											<th scope="col">Billed Amount</th>
+											<th scope="col">Rec Amount</th>
+											<th scope="col">Equivalent Month</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList52}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.NET_IMPORT_KWH}"></td>
+											<td th:text="${t.BILLED_AMT}"></td>
+											<td th:text="${t.REC_AMT}"></td>
+											<td th:text="${t.EQ_MONTH}"></td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 1st chart end -->
+							<!-- 2nd chart start -->
+							<div class="card col-md-5 fig1 "
+								style="height: 500px; border-radius: 10px; margin-left: 50px;"
+								id="row28">
+								<h5 class="card-header" style="height: 50px; height: 60px;">
+									<span th:text="${hdr53_table}"></span> Wise Equivalent
+									Month(Upto <span th:text="*{month}"></span>)
+								</h5>
+
+								<!-- 								<a th:href="@{/detail}" class="btn btn-warning mb-2">Monthly Detail</a> -->
+
+								<table class="table table-bordered display" id="table53">
+									<thead>
+										<tr class="table-secondary">
+											<th scope="col" th:text="${hdr53_table}"></th>
+											<th scope="col">Net Import(KWH)</th>
+											<th scope="col">Billed Amount</th>
+											<th scope="col">Rec Amount</th>
+											<th scope="col">Equivalent Month</th>
+
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="t:${tableList53}">
+											<th scope="row" th:text="${t.LINEX}"></th>
+											<td th:text="${t.NET_IMPORT_KWH}"></td>
+											<td th:text="${t.BILLED_AMT}"></td>
+											<td th:text="${t.REC_AMT}"></td>
+											<td th:text="${t.EQ_MONTH}"></td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 2nd chart end -->
+
+						</div>
+						<!-- dpd_EQ_MONTH tABLE end (R) -->
+
+
+
+
+
+						<script th:inline="javascript">
+							function mt_rand(min, max) {
+								var argc = arguments.length
+								if (argc === 0) {
+									min = 0
+									max = 2147483647
+								} else if (argc === 1) {
+									throw new Error(
+											'Warning: mt_rand() expects exactly 2 parameters, 1 given')
+								}
+								return Math.floor(Math.random()
+										* (max - min + 1))
+										+ min
+							}
+							function random_color_part() {
+								// return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', 1);
+								return mt_rand(0, 255);
+							}
+
+							function random_color() {
+								return 'rgb(' + random_color_part() + ','
+										+ random_color_part() + ','
+										+ random_color_part() + ')';
+							}
+
+							//let $color = random_color();
+
+							//chart stART 
+
+							var real_data = /*[[${chartData}]]*/'noValue';
+
+							var real_data1 = /*[[${chartData1}]]*/'noValue';
+
+							var real_data2 = /*[[${chartData2}]]*/'noValue';
+
+							var real_data3 = /*[[${chartData3}]]*/'noValue';
+
+							var real_data4 = /*[[${chartData4}]]*/'noValue';
+
+							var real_data5 = /*[[${chartData5}]]*/'noValue';
+
+							var real_data6 = /*[[${chartData6}]]*/'noValue';
+
+							var real_data7 = /*[[${chartData7}]]*/'noValue';
+
+							var real_data8 = /*[[${chartData8}]]*/'noValue';
+
+							var real_data10 = /*[[${chartData10}]]*/'noValue';
+
+							var real_data11 = /*[[${chartData11}]]*/'noValue';
+
+							var real_data12 = /*[[${chartData12}]]*/'noValue';
+
+							var real_data13 = /*[[${chartData13}]]*/'noValue';
+
+							var real_data14 = /*[[${chartData14}]]*/'noValue';
+
+							let x = [];
+							for ( var property in real_data) {
+								x.push(property);
+
+							}
+
+							let x1 = [];
+
+							for ( var property in real_data1) {
+								x1.push(property);
+
+							}
+
+							let x2 = [];
+
+							for ( var property in real_data2) {
+								x2.push(property);
+
+							}
+
+							let x3 = [];
+
+							for ( var property in real_data3) {
+								x3.push(property);
+
+							}
+
+							let x4 = [];
+
+							for ( var property in real_data4) {
+								x4.push(property);
+
+							}
+
+							let x5 = [];
+
+							for ( var property in real_data5) {
+								x5.push(property);
+
+							}
+
+							let x6 = [];
+
+							for ( var property in real_data6) {
+								x6.push(property);
+
+							}
+
+							let x7 = [];
+
+							for ( var property in real_data7) {
+								x7.push(property);
+
+							}
+
+							let x8 = [];
+
+							for ( var property in real_data8) {
+								x8.push(property);
+
+							}
+
+							let x10 = [];
+
+							for ( var property in real_data10) {
+								x10.push(property);
+
+							}
+
+							let x11 = [];
+
+							for ( var property in real_data11) {
+								x11.push(property);
+
+							}
+
+							let x12 = [];
+
+							for ( var property in real_data12) {
+								x12.push(property);
+
+							}
+
+							let x13 = [];
+
+							for ( var property in real_data13) {
+								x13.push(property);
+
+							}
+
+							let x14 = [];
+
+							for ( var property in real_data14) {
+								x14.push(property);
+
+							}
+
+							// 							console.log(x2);
+							// 							let i =0;
+
+							$(document)
+									.ready(
+											function() {
+												google.charts.load('current', {
+													packages : [ 'corechart',
+															'bar' ]
+												});
+												// 							google.charts.setOnLoadCallback(drawColumnChart);
+												google.charts
+														.setOnLoadCallback(drawColumnChart1);
+												google.charts
+														.setOnLoadCallback(drawColumnChart2);
+												google.charts
+														.setOnLoadCallback(drawColumnChart3);
+												google.charts
+														.setOnLoadCallback(drawColumnChart4);
+												google.charts
+														.setOnLoadCallback(drawColumnChart5);
+												google.charts
+														.setOnLoadCallback(drawColumnChart6);
+
+												google.charts
+														.setOnLoadCallback(drawColumnChart7);
+												google.charts
+														.setOnLoadCallback(drawColumnChart8);
+												google.charts
+														.setOnLoadCallback(drawColumnChart9);
+												google.charts
+														.setOnLoadCallback(drawColumnChart10);
+												google.charts
+														.setOnLoadCallback(drawColumnChart11);
+												google.charts
+														.setOnLoadCallback(drawColumnChart12);
+
+												google.charts
+														.setOnLoadCallback(drawColumnChart13);
+												google.charts
+														.setOnLoadCallback(drawColumnChart14);
+
+											});
+
+							//multiple bar chart start
+							function drawColumnChart() {
+								let fuck = [];
+								fuck.push([ ' ', 'Saidi', 'Saifi' ]);
+								Object.keys(real_data).forEach(
+										function(key) {
+
+											fuck.push([ x[i], real_data[key],
+													real_data2[key] ]);
+
+											i++;
+
+										});
+								var data = google.visualization
+										.arrayToDataTable(fuck);
+
+								var options = {
+									chart : {
+										title : '',
+										subtitle : '',
+									},
+									bars : 'vartical', // Required for Material Bar Charts.
+									hAxis : {
+										format : 'decimal'
+									},
+									width : 1000,
+								};
+								if (x.length === 0) {
+									document.getElementById('chart_div').style.display = 'none'
+									document.getElementById('chart_div_empty').style.display = 'inline'
+								} else {
+									document.getElementById('chart_div').style.display = 'inline'
+									document.getElementById('chart_div_empty').style.display = 'none'
+									var chart = new google.charts.Bar(document
+											.getElementById('chart_div'));
+									chart.draw(data, google.charts.Bar
+											.convertOptions(options));
+								}
+							}
+
+							//multiple bar chart end
+
+							//single graph bar start
+
+							//1st chart strat 
+							function drawColumnChart1() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'SYSTEM LOSS');
+								data.addColumn({
+
+									type : 'string',
+									role : 'style',
+
+								});
+
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+
+								Object.keys(real_data).forEach(
+										function(key) {
+											console.log(key);
+
+											data.addRow([ key, real_data[key],
+													random_color(),
+													real_data[key] ]);
+
+										});
+
+								var options = {
+
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+
+									//legend: {position: 'none'},
+									hAxis : {
+										title : '----Zone----',
+									},
+									vAxis : {
+										title : '---SYSTEM LOSS---', 
+										minValue: 0,
+										maxValue: 9
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.ColumnChart(
+										document.getElementById('chart_div1'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//1st chart end
+
+							//2nd chart start
+
+							function drawColumnChart2() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'SYSTEM LOSS');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+								Object.keys(real_data1).forEach(
+										function(key) {
+											data.addRow([ key, real_data1[key],
+													random_color(),
+													real_data1[key] ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '----Zone----',
+
+									},
+									vAxis : {
+										title : '---SYSTEM LOSS---',
+										minValue: 0,
+										maxValue: 15
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.ColumnChart(
+										document.getElementById('chart_div2'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//2nd chart end
+
+							//3rd chart start
+
+							function drawColumnChart3() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'CI RATIO');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+								Object.keys(real_data2).forEach(
+										function(key) {
+											data.addRow([ key, real_data2[key],
+													random_color(),
+													real_data2[key] ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '---Zone---',
+									},
+									vAxis : {
+										title : '---CI RATIO---', 
+										minValue: 100,
+										maxValue: 115
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.ColumnChart(
+										document.getElementById('chart_div3'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//3rd chart end
+
+							//4th chart start
+
+							function drawColumnChart4() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'CI RATIO');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+								Object.keys(real_data3).forEach(
+										function(key) {
+											data.addRow([ key, real_data3[key],
+													random_color(),
+													real_data3[key] ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '----Zone----',
+									},
+									vAxis : {
+										title : '---CI RATIO---',
+										minValue: 90,
+										maxValue: 100
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.ColumnChart(
+										document.getElementById('chart_div4'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//4th chart end
+
+							//5th chart start
+
+							function drawColumnChart5() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'CB RATIO');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+								Object.keys(real_data4).forEach(
+										function(key) {
+											data.addRow([ key, real_data4[key],
+													random_color(),
+													real_data4[key] ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '----Zone----',
+									},
+									vAxis : {
+										title : '---CB RATIO---',
+										minValue: 100,
+										maxValue: 115
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.ColumnChart(
+										document.getElementById('chart_div5'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//5th chart end
+
+							//6th chart start
+
+							function drawColumnChart6() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'CB RATIO');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+								Object.keys(real_data5).forEach(
+										function(key) {
+											data.addRow([ key, real_data5[key],
+													random_color(),
+													real_data5[key] ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '----Zone----',
+									},
+									vAxis : {
+										title : '---CB RATIO---',
+										minValue: 100,
+										maxValue: 115
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.ColumnChart(
+										document.getElementById('chart_div6'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//6th chart end
+
+							//7th chart start
+
+							function drawColumnChart7() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'EQUIVALENT MONTH');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+								Object.keys(real_data6).forEach(
+										function(key) {
+											data.addRow([ key, real_data6[key],
+													random_color(),
+													real_data6[key] ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '----Zone----',
+									},
+									vAxis : {
+										title : '---EQUIVALENT MONTH---',
+										minValue: 0,
+										maxValue: 10
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.ColumnChart(
+										document.getElementById('chart_div7'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//7th chart end
+
+							//8th chart start
+
+							function drawColumnChart8() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'BILLED UNIT');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+								Object.keys(real_data7).forEach(
+										function(key) {
+											data.addRow([ key, real_data7[key],
+													random_color(),
+													real_data7[key] ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '',
+									},
+									vAxis : {
+										title : 'BILLED UNIT'
+									},
+									width : 350,
+									height : 350,
+								//pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+								};
+								var chart = new google.visualization.PieChart(
+										document.getElementById('chart_div8'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//8th chart end
+
+							//9th chart start
+
+							function drawColumnChart9() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'BILLED UNIT');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								Object.keys(real_data8).forEach(
+										function(key) {
+											data.addRow([ key, real_data8[key],
+													random_color() ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '',
+									},
+									vAxis : {
+										title : 'BILLED UNIT'
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.PieChart(
+										document.getElementById('chart_div9'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//9th chart end
+
+							//10th chart start
+
+							function drawColumnChart10() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'COLL AMT');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								Object.keys(real_data10).forEach(
+										function(key) {
+											data.addRow([ key,
+													real_data10[key],
+													random_color() ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '',
+									},
+									vAxis : {
+										title : 'Collection Amount'
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.PieChart(
+										document.getElementById('chart_div10'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//10th chart end
+
+							//11th chart start
+
+							function drawColumnChart11() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'COLL AMT');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								Object.keys(real_data11).forEach(
+										function(key) {
+											data.addRow([ key,
+													real_data11[key],
+													random_color() ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '',
+									},
+									vAxis : {
+										title : 'Collection Amount'
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.PieChart(
+										document.getElementById('chart_div11'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//11th chart end
+
+							//12th chart start
+
+							function drawColumnChart12() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'EQUIVALENT MONTH');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								data.addColumn({
+									type : 'number',
+									role : 'annotation'
+								});
+								Object.keys(real_data6).forEach(
+										function(key) {
+											data.addRow([ key,
+													real_data12[key],
+													random_color(),
+													real_data12[key] ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '----Zone----',
+									},
+									vAxis : {
+										title : '---EQUIVALENT MONTH---',
+										minValue: 0,
+										maxValue: 10
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.ColumnChart(
+										document.getElementById('chart_div12'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							//12th chart end
+
+							// 						dpd_BILLED_amt_CM chart start
+
+							function drawColumnChart13() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'BILLED AMT');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								Object.keys(real_data13).forEach(
+										function(key) {
+											data.addRow([ key,
+													real_data13[key],
+													random_color() ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '',
+									},
+									vAxis : {
+										title : 'Billed Amount'
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.PieChart(
+										document.getElementById('chart_div13'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							// 						dpd_BILLED_amt_CM chart start
+
+							// 						dpd_BILLED_amt_UP chart start
+
+							function drawColumnChart14() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Feeder');
+								data.addColumn('number', 'BILLED AMT');
+								data.addColumn({
+									type : 'string',
+									role : 'style'
+								});
+								Object.keys(real_data14).forEach(
+										function(key) {
+											data.addRow([ key,
+													real_data14[key],
+													random_color() ]);
+
+										});
+								var options = {
+									title : '',
+									legend : {
+										position : 'top',
+										maxLines : 3
+									},
+									hAxis : {
+										title : '',
+									},
+									vAxis : {
+										title : 'Billed Amount'
+									},
+									width : 350,
+									height : 350,
+								};
+								var chart = new google.visualization.PieChart(
+										document.getElementById('chart_div14'));
+								chart.draw(data, options);
+
+								google.visualization.events.addListener(chart,
+										'select', selectHandler);
+								function selectHandler(e) {
+									alert(data.getValue(
+											chart.getSelection()[0].row, 0));
+								}
+							}
+
+							// 						dpd_BILLED_amt_UP chart start
+
+							//single graph bar end
+						</script>
+
+
+
+
+						<!-- chart end -->
+
+
+
+
+					</div>
+					<!-- print div ends -->
+				</div>
+			</div>
+			</div>
+	</div>
+	</main>
+	<!-- page-content" -->
+	</div>
+	<!-- page-wrapper -->
+
+	<!-- using online scripts -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous">
+		
+	</script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous">
+		
+	</script>
+	<script
+		src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<!-- using local scripts -->
+	<!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+
+	<script src="../js/main.js"></script>
+	<!-- datatable script  -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+
+
+	<!-- datatable script link  -->
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+	<script
+		src="https://nightly.datatables.net/buttons/js/dataTables.buttons.js?_=c6b24f8a56e04fcee6105a02f4027462"></script>
+
+
+	<script
+		src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script
+		src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+
+
+
+	<script>
+		$(document).ready(
+				function() {
+					$('#page-content-wrapper ,#sidebar-wrapper').toggleClass(
+							'toggled');
+				});
+
+		$('#bar').click(
+				function() {
+					$(this).toggleClass('open');
+					$('#page-content-wrapper ,#sidebar-wrapper').toggleClass(
+							'toggled');
+
+				});
+	</script>
+
+
+
+	<!-- 		circle dropdown starts  -->
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#zone")
+									.change(
+											function() {
+
+												$("#circle").empty();
+
+												var x = $("#zone").val();
+
+												if (x == "") {
+													$("#circle").empty();
+													$("<option>")
+															.val("")
+															.text(
+																	"Select Circle")
+															.appendTo(
+																	circleDropdown);
+												} else {
+
+													var urlString = "/api/circle/"
+															+ x;
+													console.log(urlString);
+
+													$
+															.ajax({
+																method : "GET",
+																url : urlString
+															})
+															.done(
+																	function(
+																			responseJson) {
+
+																		circleDropdown = $("#circle");
+
+																		$(
+																				"<option>")
+																				.val(
+																						"")
+																				.text(
+																						"Select Circle")
+																				.appendTo(
+																						circleDropdown);
+																		$
+																				.each(
+																						responseJson,
+																						function(
+																								index,
+																								circle) {
+
+																							$(
+																									"<option>")
+																									.val(
+																											circle.circle_CODE)
+																									.text(
+																											circle.circle_NAME)
+																									.appendTo(
+																											circleDropdown);
+																						});
+																	})
+															.fail(
+																	function() {
+																		alert("Connection Error");
+																	})
+												}
+
+											})
+						})
+	</script>
+	<!-- 		circle dropdown ends  -->
+
+	<!-- 			div dropdown starts -->
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#circle")
+									.change(
+											function() {
+
+												$("#div").empty();
+
+												var x = $("#circle").val();
+												// 					console.log(x);
+
+												if (x == "") {
+													$("#div").empty();
+													$("<option>")
+															.val("")
+															.text("Select Div")
+															.appendTo(
+																	divDropdown);
+												} else {
+
+													var urlString = "/api/div/"
+															+ x;
+													console.log(urlString);
+
+													$
+															.ajax({
+																method : "GET",
+																url : urlString
+															})
+															.done(
+																	function(
+																			responseJson) {
+
+																		divDropdown = $("#div");
+
+																		// 							alert(responseJson);
+
+																		$(
+																				"<option>")
+																				.val(
+																						"")
+																				.text(
+																						"Select S&D")
+																				.appendTo(
+																						divDropdown);
+																		$
+																				.each(
+																						responseJson,
+																						function(
+																								index,
+																								div) {
+																							// 								div_CODE
+
+																							$(
+																									"<option>")
+																									.val(
+																											div.div_CODE)
+																									.text(
+																											div.div_NAME)
+																									.appendTo(
+																											divDropdown);
+																						});
+																	})
+															.fail(
+																	function() {
+																		alert("Connection Error");
+																	})
+												}
+
+											})
+						})
+	</script>
+	<!-- 				div dropdown ends  -->
+
+
+
+	<!-- loc dropdown starts -->
+
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#div")
+									.change(
+											function() {
+
+												$("#loc").empty();
+
+												var y = $("#circle").val();
+
+												console.log(y);
+												var x = $("#div").val();
+												console.log(x);
+
+												if (x == "") {
+													$("#loc").empty();
+													$("<option>")
+															.val("")
+															.text("Select Loc")
+															.appendTo(
+																	circleDropdown);
+												} else {
+
+													var str1 = "_";
+													var str2 = x.concat(str1);
+													var res = str2.concat(y);
+
+													console.log(res);
+
+													var urlString = "/api/loc/"
+															+ x + "/" + y;
+													console.log(urlString);
+
+													$
+															.ajax({
+																method : "GET",
+																url : urlString
+															})
+															.done(
+																	function(
+																			responseJson) {
+
+																		locDropdown = $("#loc");
+
+																		// 							alert(responseJson);
+
+																		$(
+																				"<option>")
+																				.val(
+																						"")
+																				.text(
+																						"Select Loc")
+																				.appendTo(
+																						locDropdown);
+																		$
+																				.each(
+																						responseJson,
+																						function(
+																								index,
+																								loc) {
+																							// 								div_CODE
+
+																							$(
+																									"<option>")
+																									.val(
+																											loc.location_CODE)
+																									.text(
+																											loc.location_NAME)
+																									.appendTo(
+																											locDropdown);
+																						});
+																	})
+															.fail(
+																	function() {
+																		// 							alert("Connection Error");
+																		alert(urlString);
+																	})
+												}
+
+											})
+						})
+	</script>
+
+	<!-- loc dropdown ends -->
+
+	<script>
+		$(document)
+				.ready(
+						function() {
+
+							// 	var user = document.getElementById("user").innerText;
+
+							var r = document.getElementById("report");
+							var r_text = r.options[r.selectedIndex].text;
+
+							var z = document.getElementById("zone");
+							var z_text = z.options[z.selectedIndex].text;
+							if (z_text === "Select Zone") {
+								z_text = "  ";
+							}
+
+							var c = document.getElementById("circle");
+							var c_text = c.options[c.selectedIndex].text;
+							if (c_text === "Select Circle") {
+								c_text = "  ";
+							}
+
+							var d = document.getElementById("div");
+							var d_text = d.options[d.selectedIndex].text;
+							if (d_text === "Select S&D") {
+								d_text = "  ";
+							}
+
+							var l = document.getElementById("loc");
+							var l_text = l.options[l.selectedIndex].text;
+							if (l_text === "Select Loc") {
+								l_text = "  ";
+							}
+
+							var f = document.getElementById("bill");
+							var f_text = f.options[f.selectedIndex].text;
+							if (f_text === "Select Month") {
+								f_text = "  ";
+							}
+
+							$('#table2')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table41')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												"scrollX" : true,
+
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table42')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												"scrollX" : true,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+							$('#table43')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												"scrollX" : true,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table44')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table45')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												"scrollX" : true,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table46')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table47')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table48')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table49')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table50')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table51')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+							$('#table52')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												"scrollX" : true,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+							$('#table53')
+									.DataTable(
+											{
+												dom : 'Bfrtip',
+												"searching" : false,
+												"paging" : true,
+												"bInfo" : true,
+												"pageLength" : 5,
+												"scrollX" : true,
+												buttons : [
+														{
+															extend : "excel",
+															className : 'btn btn-success'
+														},
+														{
+															extend : 'print',
+															text : 'Print',
+															orientation : 'landscape',
+															pageSize : 'A4',
+															className : 'btn btn-primary',
+															autoPrint : true,
+															title : '',
+															exportOptions : {
+																columns : ':visible',
+																stripHtml : false
+															},
+															messageTop : "<div class='float-right' style='font-size: 18px'>User :ITBL</div> <div class='text-center'> <img style='margin-left: 150px' src='./img/logo.jpg' alt='' height='80px' width='80px'> <h1 style='font-size:22px;'>Bangladesh Power Development Board</h1> </div>"
+																	+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIDI: System Average Interruption Duration Index</div>'"+
+																	// 	                        "<div style='text-align:center; font-size: 20px;'>SAIFI: System Average Interruption Frequency Index</div>'"+
+																	"<div style='text-align:center; font-size: 20px;'>Generation Performance Report</div>'"
+																	+
+
+																	"<div style='text-align:center; margin-top: -30px; font-size: 20px;'>Report Level :"
+																	+ r_text
+																	+ "</div>"
+																	+ "<div style='text-align:center; font-size: 20px;'>Zone :"
+																	+ z_text
+																	+ "Circle : "
+																	+ c_text
+																	+ " Div : "
+																	+ d_text
+																	+ " Loc : "
+																	+ l_text
+																	+ " Month : "
+																	+ f_text
+																	+ "</div>"
+														}
+
+												]
+
+											});
+
+						})
+	</script>
+
+
+	<script>
+		$(document).ready(function() {
+			$("#row3").fadeOut();
+			$("#row4").fadeOut();
+			$("#row7").fadeOut();
+			$("#row8").fadeOut();
+			$("#row11").fadeOut();
+			$("#row12").fadeOut();
+			$("#row15").fadeOut();
+			$("#row16").fadeOut();
+			$("#row19").fadeOut();
+			$("#row20").fadeOut();
+			$("#row23").fadeOut();
+			$("#row24").fadeOut();
+			$("#row27").fadeOut();
+			$("#row28").fadeOut();
+
+			$('input[name=optradio]').change(function() {
+				var value = $('input[name=optradio]:checked').val();
+
+				if (value == 'both') {
+					$("#row3").show();
+					$("#row4").show();
+					$("#row7").show();
+					$("#row8").show();
+					$("#row11").show();
+					$("#row12").show();
+					$("#row15").show();
+					$("#row16").show();
+					$("#row19").show();
+					$("#row20").show();
+					$("#row23").show();
+					$("#row24").show();
+					$("#row27").show();
+					$("#row28").show();
+
+					$("#row1").hide();
+					$("#row2").hide();
+					$("#row5").hide();
+					$("#row6").hide();
+					$("#row9").hide();
+					$("#row10").hide();
+					$("#row13").hide();
+					$("#row14").hide();
+					$("#row17").hide();
+					$("#row18").hide();
+					$("#row21").hide();
+					$("#row22").hide();
+					$("#row25").hide();
+					$("#row26").hide();
+
+				}
+
+				if (value == 'single') {
+					$("#row1").show();
+					$("#row2").show();
+					$("#row5").show();
+					$("#row6").show();
+					$("#row9").show();
+					$("#row10").show();
+					$("#row13").show();
+					$("#row14").show();
+					$("#row17").show();
+					$("#row18").show();
+					$("#row21").show();
+					$("#row22").show();
+					$("#row25").show();
+					$("#row26").show();
+
+					$("#row3").hide();
+					$("#row4").hide();
+					$("#row7").hide();
+					$("#row8").hide();
+					$("#row11").hide();
+					$("#row12").hide();
+					$("#row15").hide();
+					$("#row16").hide();
+					$("#row19").hide();
+					$("#row20").hide();
+					$("#row23").hide();
+					$("#row24").hide();
+					$("#row27").hide();
+					$("#row28").hide();
+				}
+
+			});
+
+		});
+	</script>
+
+
+	<script type="text/javascript">
+         function printContent(el){
+           
+         	 var divToPrint=document.getElementById(el);
+         
+         	  var newWin=window.open('','Print-Window');
+         
+         	  newWin.document.open();
+         
+         	  newWin.document.write('<html> <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"crossorigin="anonymous">');
+         	  newWin.document.write('<style> @media print {.pagebreak { page-break-before: always; }} @page{size:landscape;} *{font-size: 10px!important;} table, th, td {border: 1px solid black;} .table{border: 2px solid black;border-collapse: collapse;width: 100%;} </style>'); 
+         	  newWin.document.write('<body onload="window.print()"> ');
+         	  
+         	  
+         	  
+         	  newWin.document.write(divToPrint.innerHTML);
+         	  
+         	  newWin.document.write('</body></html>');
+         
+         	  newWin.document.close();
+         
+         	  setTimeout(function(){newWin.close();},1000);
+         }
+         
+      </script>
+
+
+
+
+
+</body>
+</html>

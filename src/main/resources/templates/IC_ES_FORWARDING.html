@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>iConverge</title>
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/sidebar-themes.css">
+    <link rel="stylesheet" href="../css/form-style.css">
+    <link rel="stylesheet" href="../css/index.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <!-- datatable link  -->
+    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style type="text/css">
+</style>
+
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <div class="page-wrapper default-theme  bg1 toggled">
+        <span th:remove="tag" th:utext="${dataHtml}"></span>
+
+        
+        <!-- page-content  -->
+        <main class="page-content">
+            <div id="overlay" class="overlay"></div>
+            <div class="container-fluid" style="padding: 0px; ">
+                <div class="title-bar"
+                    style="height: 90px; background-image: url(../img/bn.jpeg) !important;background-repeat: no-repeat;width: 100%;height: 100%;background-size: cover;">
+                    <a id="toggle-sidebar" class="btn btn-secondary rounded-0" href="#"
+                        style="margin: 20px; background: #3ab54a;">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-list" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                            </svg></span>
+                    </a>
+                </div>
+                 <div class="container">
+					<form th:action="@{/IC_ES_FORWARDING}" method="post"
+						th:object="${reportModel}">
+						<div class="card mt-5 mb-5">
+							<div class="row pt-4 pb-4 card-body">
+								
+								
+								<div class="col-lg-1 col-md-2 col-sm-12 mt-3 text-center">
+									<label for="bill" class="">Month :</label>
+								</div>
+								<div class="col-lg-2 col-md-3 col-sm-12">
+									<select id="two" class="form-control" name="two">
+										<option value="">Select Month</span></option>
+
+										<option th:each="b : ${billList}"
+											th:value="${b.BILL_CYCLE_CODE}"
+											th:text="${b.BILL_CYCLE_DESC}"
+											th:selected="${b.BILL_CYCLE_CODE}==${reportModel.two}"></option>
+									</select>
+								</div>
+								<div class="col-lg-2 col-md-2 col-sm-12 text-center">
+									<input type="submit" value="Submit"
+										class="btn btn-lg btn-success mr-1 mb-1" />
+								</div>
+								<div class="col-lg-2 col-md-2 col-sm-12 text-center">
+								<input type="button"
+						class="btn btn-lg btn-danger mr-1 mb-1"
+						id="printme" value="Print" onclick="printContent('divName')" />
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+                <div id="divName" class="container" >
+                <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12" style="text-align: center;">
+        <h5 class="headings"><b>BANGLADESH POWER DEVELOPMENT BOARD</b></h5>
+        <p class="mt-1"><b>EXECUTIVE SUMMARY</b></p>
+        <span class="centerSpan" style="text-decoration: underline;"><b th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></b></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-12">
+        <p class="paragraph" style="text-align: left;">In the month of <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"> </span> the
+          netgeneration wa! <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH_NET_GEN}" > </span> , sale of energy was <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH_ENRG_SALE}"> </span>  and BPDB's
+          distribution loss was <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH_DIST_LOSS}" ></span> Generation, Import, System loss, Bill
+          collection.Consumerbilled, C/B &C/I Ratio, Accounts
+          receivable and activities of Magistrate Courts are summarized below :</p>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-12">
+        <p><b>1.0 GENERATION:</b></p>
+        <p><b>1.1 Energy Generation:</b></p>
+        <p>The Netenergygeneration ( including lpp, RPP, Imported & Others) during <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"> </span> and <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_MONTH}"> </span> were
+          <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH_NET_GEN}"> </span> and  <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_MONTH_NET_GEN}"></span> respectively. It was observed that net generation
+          increased by <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.MONTH_NET_GEN_DIFF}"> </span> from previous month. Gross energy generation, Sattion use, Net
+          generation, Imported energy and Energy purchase from IPP & RPP are tabulated below:
+        </p>
+        <table class="table mt-4" style="text-align: center;">
+          <tr>
+            <th rowspan="2" >Month/FY</th>
+            <th colspan="3">BPDB Generation (MKwh)</th>
+            <th colspan="3">Net Generation (MKwh)</th>
+            <th rowspan="2">Imported (MKwh)</th>
+            <th rowspan="2">Renewable/Others (MKwh)</th>
+            <th rowspan="2">Total Net Generation (BPDB, IPP & RPP)</th>
+          </tr>
+          <tr>
+            <td>Gross Generation</td>
+            <td>Station Use</td>
+            <td>Net Generation</td>
+
+            <td>Joint Venture</td>
+            <td>IPP</td>
+            <td>Rental</td>
+          </tr>
+          <tr th:each="s: ${IC_ES_FORWARDING}">
+            <th scope="row" th:text="${s.MONTH_YR}"></th>
+            <td th:text="${s.GROSS_GEN}"></td>
+            <td th:text="${s.STATION_USE}"></td>
+            <td  th:text="${s.NET_GEN}"></td>
+             <th scope="row" th:text="${s.JV}"></th>
+            <td th:text="${s.IPP}"></td>
+            <td th:text="${s.RENTAL}"></td>
+            <td  th:text="${s.IMPORTED}"></td>
+            <td th:text="${s.OTHER}"></td>
+            <td  th:text="${s.NET_TOTAL}"></td>
+          </tr>
+<!--           <tr> -->
+<!--             <th scope="row">FY: 2020-21 (Upto <span>Sep'20</span>)</th> -->
+<!--             <td></td> -->
+<!--             <td></td> -->
+<!--             <td></td> -->
+<!--           </tr> -->
+<!--           <tr> -->
+<!--             <th scope="row"><span>September'20</span></th> -->
+<!--             <td></td> -->
+<!--             <td></td> -->
+<!--             <td></td> -->
+<!--           </tr> -->
+<!--           <tr> -->
+<!--             <th scope="row"><span>September'19</span></th> -->
+<!--             <td></td> -->
+<!--             <td></td> -->
+<!--             <td></td> -->
+<!--           </tr> -->
+<!--           <tr> -->
+<!--             <th scope="row"><span>August'20</span></th> -->
+<!--             <td></td> -->
+<!--             <td></td> -->
+<!--             <td></td> -->
+<!--           </tr> -->
+        </table>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+
+    <div class="row">
+      <p>*Including <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.ISOLATED_GEN}"></span> non-grid generations</p>
+      <p><span class="mt-2"><b>1.2 Net Energy Generation (%) by Fuel Type and by Company/Utility:</b></span></p>
+      <p><b>1.2.1. Net Energygenerated bytype of fuel for <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}" ></span>, FY: <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}" ></span> 
+          &
+          FY: <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}" ></span> are shown below in pie chart </b>:</p>
+
+    </div>
+
+    <!-- Start: Chart1 -->
+    <div class="row mt-3">
+      <div class="col-lg-4 col-xl-4 col-md-4">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+            <h6 class="text-dark font-weight-bold" style="text-align: center;">Net Generation <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH_NET_GEN}" > </span>
+                <br>
+                 <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}" >
+              
+              </span> </h6>
+          </div>
+          <div id="chart_div1">
+          
+            </div>
+
+          </div>
+        </div>
+     
+
+ <div class="col-lg-4 col-xl-4 col-md-4">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+                       <h6 class="text-dark font-weight-bold " style="text-align: center;">Net Generation<span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH_NET_GEN}" > </span>
+                <br>
+               <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}" >
+              </span></h6>
+            
+          </div>
+          <div id="chart_div2">
+          
+            </div>
+
+          </div>
+        </div>
+
+
+
+ <div class="col-lg-4 col-xl-4 col-md-4">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+                <h6 class="text-dark font-weight-bold" style="text-align: center;">Net Generation <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_NET_GEN}" ></span> 
+                <br>
+             <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}" >
+              </span></h6>
+               
+          </div>
+          <div id="chart_div3">
+          
+            </div>
+
+          </div>
+        </div>
+      
+      
+      
+      
+      
+    </div>
+    <!-- End: Chart -->
+
+    <div class="row mt-4">
+      <p><b>1.2.2. Net Energy generated (%) by BPDB/ Company is shown bellow in graph:</b></p>
+    </div>
+
+    <!-- Start: Chart1 -->
+    <div class="row mt-3">
+
+
+ <div class="col-lg-5 col-xl-5 col-md-5">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+                          <h6 class="text-dark font-weight-bold" style="text-align: center;">Net Generation BPDB/ Company for <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}" ></span>
+             </h6>
+               
+          </div>
+          <div id="chart_div4">
+          
+            </div>
+
+          </div>
+        </div>
+      
+      
+      <div class="col-lg-2 col-xl-2 col-md-2"></div>
+      
+
+ <div class="col-lg-5 col-xl-5 col-md-5">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+                          <h6 class="text-dark font-weight-bold" style="text-align: center;">Net Generation BPDB/ Company for FY: <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}" ></span>
+             </h6>
+               
+          </div>
+          <div id="chart_div5">
+          
+            </div>
+
+          </div>
+        </div>
+      
+    </div>
+    <!-- End: Chart -->
+
+    <div class="mt-4">
+      <p><b>1.3 Maximum Generation, Demat`d and Load Shading :</b></p>
+      <p>According to the Daily Data from Load Dispatch Center (LDC) maxim`im gerieration, Demand and Load Shading of
+        <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span>, <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_MONTH}"></span>,<span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></span>
+      </p>
+    </div>
+    <table class="table mt-2" style="text-align: center;">
+      <tr>
+        <th rowspan="2">Description</th>
+        <th colspan="2"><span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_MONTH}"></span></th>
+        <th colspan="2"><span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span></th>
+        <th colspan="2"><span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></span></th>
+
+      </tr>
+      <tr >
+        <td >Date</td>
+        <td >MW</td>
+
+        <td>Date</td>
+        <td>MW</td>
+
+        <td>Date</td>
+        <td>MW</td>
+      </tr>
+      <tr th:each="s: ${IC_ES_FORWARDING1}">
+        <th scope="row" th:text="${s.LDC_TYPE_NAME}"></th>
+        <td th:text="${s.PM_LDC_DATE}"></td>
+        <td th:text="${s.PM_LDC}"></td>
+
+        <td th:text="${s.CM_LDC_DATE}"></td>
+        <td th:text="${s.CM_LDC}"></td>
+
+        <td th:text="${s.UP_LDC_DATE}"></td>
+        <td th:text="${s.UP_LDC}"></td>
+
+      </tr>
+<!--       <tr> -->
+<!--         <th scope="row">Maximum Demand</th> -->
+<!--         <td></td> -->
+<!--         <td></td> -->
+
+<!--         <td></td> -->
+<!--         <td></td> -->
+
+<!--         <td></td> -->
+<!--         <td></td> -->
+
+<!--       </tr> -->
+<!--       <tr> -->
+<!--         <th scope="row">Maximum Demand</th> -->
+<!--         <td></td> -->
+<!--         <td></td> -->
+
+<!--         <td></td> -->
+<!--         <td></td> -->
+
+<!--         <td></td> -->
+<!--         <td></td> -->
+
+<!--       </tr> -->
+    </table>
+  </div>
+
+  <!-- 1st page end  -->
+<div class="pagebreak"> </div>
+  <!-- 2nd page start  -->
+  <div class="container mt-4">
+    <div class=" mt-2">
+      <p><b>2.0 Energy Sale</b></p>
+      <p>2.1 Energy Sale :</p>
+      <p>Total energy sale has increased by <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.SALES_INC}" > </span>  from previous month. Bulk energy sales of <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}" ></span> 
+        <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_MONTH}"></span>,
+        <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_MONTH}"></span> and <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span> are tabulated below : (Mkwh)
+      </p>
+    </div>
+
+    <table class="table mt-2" style="text-align: center;">
+      <tr th:each="s: ${iC_ES_FORWARDING}" >
+        <th >Description</th>
+        <th th:text="${s.PREV_YR}"></th>
+        <th>FY: <span th:text="${s.CURR_YR}"> </span></th>
+        <th th:text="${s.PREV_MONTH}" ></th>
+        <th  th:text="${s.PREV_YR_MONTH}"></th>
+        <th th:text="${s.CURR_MONTH}"></th>
+
+      </tr>
+
+      <tr th:each="s: ${IC_ES_FORWARDING2}">
+        <td  th:text="${s.UC_TYPE}" ></td>
+        <td th:text="${s.PREV_YR_SALES}" ></td>
+        <td  th:text="${s.CURR_YR_UPTO_SALES}"  ></td>
+        <td  th:text="${s.PREV_MONTH_SALES}" ></td>
+        <td   th:text="${s.PREV_YR_MONTH_SALES}" ></td>
+        <td  th:text="${s.CURR_MONTH_SALES}" > </td>
+
+
+      </tr>
+
+
+      <tr th:each="s: ${IC_ES_FORWARDING5}">
+        <th scope="row">Total Sale</th>
+        
+        <td th:text="${s.PREV_YR_SALES}" ></td>
+        <td  th:text="${s.CURR_YR_UPTO_SALES}"></td>
+        <td  th:text="${s.PREV_MONTH_SALES}"></td>
+        
+        <td th:text="${s.PREV_YR_MONTH_SALES}"></td>
+        
+        <td  th:text="${s.CURR_MONTH_SALES}"></td>
+      </tr>
+    </table>
+
+    <div class=" mt-4">
+      <p><b>2.2 Share of energy sale (%)</b></p>
+      <p>Share of energy sale by Utiliq FY <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.PREV_YR}"></span>, FY: <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.CURR_YR}" ></span> and
+        <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.CURR_MONTH}"></span> are shown below:
+      </p>
+    </div>
+
+    <!-- Start: Chart1 -->
+    <div class="row mt-3">
+      <div class="col-lg-6 col-xl-6 col-md-6">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+            <h6 class="text-dark font-weight-bold" style="text-align: center;">Utility wise Energy Sale 
+              <span th:each="s: ${IC_ES_FORWARDING5}"  th:text="${s.PREV_YR_SALES}"> 
+              </span>  MKWh [FY <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.PREV_YR}"></span>]
+            </h6>
+          </div>
+          
+          
+          <div id="chart_div9">
+          
+            </div>
+          
+          
+        </div>
+      </div>
+    
+      <div class="col-lg-6 col-xl-6 col-md-6">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+            <h6 class="text-dark font-weight-bold" style="text-align: center;">Utility wise Energy Sale
+              <span th:each="s: ${IC_ES_FORWARDING5}"  th:text="${s.CURR_YR_UPTO_SALES}"> 
+              
+              </span> MKWh [FY <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.CURR_YR}"></span>]
+            </h6>
+          </div>
+          <div id="chart_div10">
+          
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: Chart -->
+
+    <!-- Start: Chart1 -->
+    <div class="row mt-3">
+      <div class="col-lg-3 col-xl-3 col-md-3"></div>
+      <div class="col-lg-6 col-xl-6 col-md-6">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+            <h6 class="text-dark font-weight-bold" style="text-align: center;">Utility wise Energy Sale
+              <span  th:each="s: ${IC_ES_FORWARDING5}"  th:text="${s.CURR_MONTH_SALES}">
+              </span> MKWh [FY <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.CURR_MONTH}"></span>]
+            </h6>
+          </div>
+          <div id="chart_div11">
+          
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-xl-3 col-md-3"></div>
+    </div>
+    <!-- End: Chart -->
+
+    <div class=" mt-4">
+      <p><b>3.0 BILLED, COLLECTION, C/B RATIO WITH COMPARISON</b></p>
+      <p>3.1 Utilities wise Bill, Collection and collection / Bill ratio for <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.PREV_YR}"></span>,
+        <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_MONTH}"></span>, <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.CURR_YR}"></span> and <span th:each="s: ${iC_ES_FORWARDING}"  th:text="${s.CURR_MONTH}"> </span> are shown below :
+      </p>
+    </div>
+
+    <table class="table mt-2" style="text-align: center;">
+      <tr>
+        <th rowspan="2">Utility</th>
+        <th colspan="4">Net Billed Amt (MTk)</th>
+        <th colspan="4">Net Collected Amt (MTk)</th>
+        <th colspan="4">Coll/Bill(%)</th>
+      </tr>
+      <tr th:each="s: ${iC_ES_FORWARDING}">
+        <td>FY: <span  th:text="${s.PREV_YR}" ></span></td>
+        <td><span  th:text="${s.PREV_YR_MONTH}"></span></td>
+        <td><span   th:text="${s.CURR_MONTH}" ></span></td>
+        <td> FY: <span  th:text="${s.CURR_YR}" ></span></td>
+        
+        <td> FY: <span th:text="${s.PREV_YR}" ></span></td>
+        <td><span  th:text="${s.PREV_YR_MONTH}"></span></td>
+        <td><span   th:text="${s.CURR_MONTH}" ></span></td>
+        <td>FY: <span th:text="${s.CURR_YR}"></span></td>
+        
+           <td>FY: <span th:text="${s.PREV_YR}" ></span></td>
+        <td><span  th:text="${s.PREV_YR_MONTH}"></span></td>
+        <td><span   th:text="${s.CURR_MONTH}" ></span></td>
+        <td>FY: <span th:text="${s.CURR_YR}"></span></td>
+
+      </tr>
+      <tr th:each="s: ${IC_ES_FORWARDING3}">
+        <th scope="row" th:text="${s.UC_TYPE}" ></th>
+        <td th:text="${s.PREV_YR_SALES_AMT}"></td>
+        <td th:text="${s.PREV_YR_MONTH_SALES_AMT}"></td>
+        <td th:text="${s.CURR_MONTH_SALES_AMT}"></td>
+        <td th:text="${s.CURR_YR_UPTO_SALES_AMT}"></td>
+        
+          <td th:text="${s.PREV_YR_COLL}"></td>
+        <td th:text="${s.PREV_YR_MONTH_COLL}"></td>
+        <td th:text="${s.CURR_MONTH_COLL}"></td>
+        <td th:text="${s.CURR_YR_UPTO_COLL}"></td>
+        
+          <td th:text="${s.PREV_YR_CB}"></td>
+        <td th:text="${s.PREV_YR_MONTH_CB}"></td>
+        <td th:text="${s.CURR_MONTH_CB}">></td>
+        <td th:text="${s.CURR_YR_UPTO_CB}"></td>
+        
+      </tr>
+  
+    
+      <tr th:each="s: ${IC_ES_FORWARDING4}">
+        <th scope="row">Total</th>
+        <td th:text="${s.PREV_YR_SALES_AMT}"></td>
+        <td th:text="${s.PREV_YR_MONTH_SALES_AMT}"></td>
+        <td th:text="${s.CURR_MONTH_SALES_AMT}"></td>
+        <td th:text="${s.CURR_YR_UPTO_SALES_AMT}"></td>
+        
+          <td th:text="${s.PREV_YR_COLL}"></td>
+        <td th:text="${s.PREV_YR_MONTH_COLL}"></td>
+        <td th:text="${s.CURR_MONTH_COLL}"></td>
+        <td th:text="${s.CURR_YR_UPTO_COLL}"></td>
+        
+          <td th:text="${s.PREV_YR_CB}"></td>
+        <td th:text="${s.PREV_YR_MONTH_CB}"></td>
+        <td th:text="${s.CURR_MONTH_CB}">></td>
+        <td th:text="${s.CURR_YR_UPTO_CB}"></td>
+        
+       
+      </tr>
+    </table>
+  </div>
+  <!-- 2nd page end  -->
+<div class="pagebreak"> </div>
+  <!-- 3rd page start  -->
+  <div class="container mt-5">
+    <div class="row">
+      <p><b>3.2 Utility Wise C/B for FY: <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}" ></span> , FY:  <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}" > </span> and
+          <span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}" > </span> are show-n below in Bar Chart:</b>
+      </p>
+    </div>
+    
+    <div class="row">
+    
+<!--       <div class="col-md-6"> -->
+<!--         <canvas id="myChart31"></canvas> -->
+<!--       </div> -->
+      
+      <div class="col-md-6">
+        <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+            <h6 class="text-dark font-weight-bold" style="text-align: center;">Utility Wise C/B [<span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}" > </span>]
+      </h6>
+          </div>
+          <div id="chart_div6">
+          
+            </div>
+
+          </div>
+        </div>
+      
+      <div class="col-md-6">
+           <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+            <h6 class="text-dark font-weight-bold" style="text-align: center;">Utility Wise C/B [<span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}" > </span>]
+      </h6>
+          </div>
+          <div id="chart_div7">
+          
+            </div>
+
+          </div>
+      </div>
+      
+    </div>
+    
+    
+    
+    <div class="row">
+      <div class="col-md-3"></div>
+      
+      <div class="col-md-6">
+           <div class="card shadow mb-4">
+          <div class="card-header justify-content-between align-items-center">
+            <h6 class="text-dark font-weight-bold" style="text-align: center;">Utility Wise C/B [<span  th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}" > </span>]
+      </h6>
+          </div>
+          <div id="chart_div8">
+          
+            </div>
+
+          </div>
+      </div>
+      
+      <div class="col-md-3"></div>
+      
+    </div>
+
+    <!-- Start: Chart1 -->
+    <script>
+      var xValues2 = ["BPBD", "WZPDCL", "DPDC", "DESCO", "PBSs", "WZPDCL", "DPDC", "DESCO", "PBSs", "PBSs", "WZPDCL", "DPDC", "DESCO", "PBSs"];
+      var yValues2 = [5, 10, 30, 20, 40, 30, 35, 40, 50, 50, 55, 60, 65, 50];
+      var barColors = ["light", "light", "light", "light", "light", "light", "light", "light", "light", "light", "light", "light", "light", "light"];
+
+      new Chart("myChart31", {
+        type: "bar",
+        data: {
+          labels: xValues2,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues2
+          }]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Utilitywisec/B(FY:2019-20)"
+          }
+        }
+      });
+
+      new Chart("myChart32", {
+        type: "bar",
+        data: {
+          labels: xValues2,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues2
+          }]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Utilitywisec/B(FY:2019-20)"
+          }
+        }
+      });
+
+      new Chart("myChart33", {
+        type: "bar",
+        data: {
+          labels: xValues2,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues2
+          }]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Utilitywisec/B(FY:2019-20)"
+          }
+        }
+      });
+    </script>
+    <!-- End: Chart -->
+
+    <div class=" mt-4">
+      <p><b>4.0 Energy Import, Sale and System loss with Comparison of BPDB's Distribution :</b></p>
+      <p><b>4.1 BPDB's zone wise Import, Sale & Dist. System loss for FY: <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}">
+            </span>,<span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_MONTH}"></span>, <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span> and
+          FY: <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></span> are shown below :</b> </p>
+    </div>
+    <table class="table mt-4" style="text-align: center;">
+      <tr>
+        <th rowspan="2">BPDB Zones</th>
+        <th colspan="4">Energy Imported (MKwh)</th>
+        <th colspan="4">Energy Sold (MKwh)</th>
+        <th colspan="4">Dist. System Loss (%)</th>
+      </tr>
+      <tr style="font-weight: bold;">
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></td>
+        
+       <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></td>
+        
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></td>
+
+      </tr>
+      <tr th:each="s: ${IC_ES_FORWARDING6}">
+        <th scope="row"  th:text="${s.ZONE_NAME}"></th>
+        <td th:text="${s.PVYR_IMPORT_MKWH}"></td>
+        <td th:text="${s.PVYRM_IMPORT_MKWH}"></td>
+        <td th:text="${s.CM_IMPORT_MKWH}"></td>
+        <td th:text="${s.UPTOM_IMPORT_MKWH}"></td>
+        
+        <td th:text="${s.PVYR_SALE_MKWH}"></td>
+        <td th:text="${s.PVYRM_SALE_MKWH}"></td>
+        <td th:text="${s.CM_SALE_MKWH}"></td>
+        <td th:text="${s.UPTOM_SALE_MKWH}"></td>
+        
+        <td  th:text="${s.PVYR_DIST_SYS_LOSS}"></td>
+        <td  th:text="${s.PVYRM_DIST_SYS_LOSS}"></td>
+        <td  th:text="${s.CM_DIST_SYS_LOSS}"></td>
+        <td  th:text="${s.UPTOM_DIST_SYS_LOSS}"></td>
+      </tr>
+    
+  
+    
+     
+
+<!--       <tr> -->
+<!--         <th scope="row">Total (BPDB Dist.)</th> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--       </tr> -->
+    </table>
+    <div class="row mt-5">
+      <p><b> 4.2 BPDB zone wise Net Bill, Net Collection, Collection / Bill ratio and Collection / import ratio are
+          tabulated below</b></p>
+    </div>
+
+    <table class="table mt-2" style="text-align: center;">
+      <tr>
+        <th rowspan="2">BPDB Zones</th>
+        <th colspan="3">Net Billed Ant (MTk)</th>
+        <th colspan="3">Net Collected Ant (MTk)</th>
+        <th colspan="3">Colt/Bill (%)</th>
+        <th colspan="3">C/I Ratio (%)</th>
+      </tr>
+      <tr style="font-weight: bold;">
+      
+         <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></td>
+        
+          <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></td>
+        
+       <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></td>
+        
+         <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></td>
+        <td th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></td>
+
+      </tr>
+      <tr th:each="s: ${IC_ES_FORWARDING6}">
+        <th scope="row" th:text="${s.ZONE_NAME}"></th>
+        <td th:text="${s.PVYR_NET_BILL_MTK}"></td>
+        <td th:text="${s.CM_NET_BILL_MTK}"></td>
+        <td th:text="${s.UPTOM_NET_BILL_MTK}"></td>
+        
+        <td th:text="${s.PVYR_NET_COLL_MTK}"></td>
+        <td th:text="${s.CM_NET_COLL_MTK}"></td>
+        <td th:text="${s.UPTOM_NET_COLL_MTK}"></td>
+        
+        <td th:text="${s.PVYR_CB_RATIO}"></td>
+        <td th:text="${s.CM_CB_RATIO}"></td>
+        <td th:text="${s.UPTOM_CB_RATIO}"></td>
+        
+        <td th:text="${s.PVYR_CI_RATIO}"></td>
+        <td th:text="${s.CM_CI_RATIO}"></td>
+        <td th:text="${s.UPTOM_CI_RATIO}"></td>
+      </tr>
+
+
+
+<!--       <tr> -->
+<!--         <th scope="row">Total (BPDB Dist.)</th> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--         <td><span></span></td> -->
+<!--       </tr> -->
+    </table>
+  </div>
+  <!-- 3rd page end  -->
+<div class="pagebreak"> </div>
+  <!-- 4th page start  -->
+  <div class="container mt-5">
+    <div class="row">
+      <p style="text-align: center; text-decoration: underline;"><b>System Loss (%) Paltem ( BPDB Disc. ) From FY :2007-2008
+         <!-- <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></span>  to FY: <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></span></b></p> -->
+           to FY: <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></span></b></p>
+    </div>
+    <div class="row" style="margin-left: auto; margin-right: auto; display: block;">
+      <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-12">
+    </div>
+ 
+ 
+      <div class="col-lg-6 col-md-6 col-sm-12" id="chart_div12">
+          
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+    </div>
+ 
+    </div>
+    <div class="row mt-5">
+      <p style="text-align: center; text-decoration: underline;"><b>C/I Ratio (%) Paltem ( BPDB Disc. ) From FY :2007-2008
+         <!-- <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></span>  to FY: <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></span></b></p></b></p> -->
+           to FY: <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></span></b></p></b></p>
+    </div>
+    <div class="row ">
+    
+    <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-12">
+    
+    </div>
+ 
+ 
+      <div class="col-lg-6 col-md-6 col-sm-12 " id="chart_div13">
+          
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12">
+      
+      </div>
+    </div>
+    <div class=" mt-5">
+      <p><b>5.0 Transmission Loss Information :</b></p>
+      <p>Transmission Loss on.Net generation from FY: <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR}"></span> to FY: <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_YR}"></span> are shown in bar
+        graph as below :</p>
+    </div>
+
+<div class="row mt-5">
+      <p style="text-align: center; text-decoration: underline;"><b>Transmission Loss (%) on Net Generation
+         </b></p>
+    </div>
+    
+  
+ <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-12">
+    </div>
+ 
+ 
+      <div class="col-lg-6 col-md-6 col-sm-12 " id="chart_div14">
+          
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+    </div>
+    </div>
+
+    <script>
+      var xValues1 = ["BPBD", "WZPDCL", "DPDC", "DESCO", "PBSs", "WZPDCL", "DPDC", "DESCO", "PBSs", "PBSs", "WZPDCL", "DPDC", "DESCO", "PBSs"];
+      var yValues1 = [5, 10, 30, 20, 40, 30, 35, 40, 50, 50, 55, 60, 65, 50];
+      var barColors = ["light", "light", "light", "light", "light", "light", "light", "light", "light", "light", "light", "light", "light", "light"];
+
+      new Chart("myChart20", {
+          type: "bar",
+          data: {
+              labels: xValues1,
+              datasets: [{
+                  backgroundColor: barColors,
+                  data: yValues1
+              }]
+          },
+          options: {
+              legend: { display: false },
+              title: {
+                  display: true,
+              }
+          }
+      });
+
+      new Chart("myChart21", {
+          type: "bar",
+          data: {
+              labels: xValues1,
+              datasets: [{
+                  backgroundColor: barColors,
+                  data: yValues1
+              }]
+          },
+          options: {
+              legend: { display: false },
+              title: {
+                  display: true,
+              }
+          }
+      });
+
+      new Chart("myChart22", {
+          type: "bar",
+          data: {
+              labels: xValues1,
+              datasets: [{
+                  backgroundColor: barColors,
+                  data: yValues1
+              }]
+          },
+          options: {
+              legend: { display: false },
+              title: {
+                  display: true,
+                  text: "Transmission Loss (%) on Net Generation"
+              }
+          }
+      });
+  </script>
+
+  </div>
+  <!-- 4th page end  -->
+<div class="pagebreak"> </div>
+  <!-- 5th page start-->
+  <div class="container mt-4">
+    <p style="text-align: center; text-decoration: underline;"> 
+     BPDB Distribution System Loss (%) [
+      <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_MONTH}"></span> - <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span> ]
+    </p>
+    </p>
+
+    <div class="row">
+      <div class="col-md-12">
+<!--         <canvas id="myChart" style=" max-width: 1300px; max-height: 500px;"></canvas> -->
+             
+    <div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-12">
+    </div>
+ 
+ 
+      <div class="col-lg-8 col-md-8 col-sm-12 "id="chart_div15">
+          
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-12">
+    </div>
+    </div>
+      </div>
+    </div>
+
+    <p class="mt-5" style="text-align: center; text-decoration: underline;">BPDB Distribution c/l Ratio(%) [
+      <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.PREV_YR_MONTH}"></span> - <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span> ]
+    </p>
+
+<!--     <div class="row"> -->
+<!--       <div class="col-md-12"> -->
+<!--        <canvas id="myChart1" style=" max-width: 1300px; max-height: 500px;"></canvas>  -->
+
+<!--       </div> -->
+<!--     </div> -->
+
+  <div class="row">
+<!--     <div class="col-lg-3 col-md-3 col-sm-12"> -->
+<!--     </div> -->
+ 
+ <div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-12">
+    </div>
+ 
+ 
+      <div class="col-lg-8 col-md-8 col-sm-12 "id="chart_div16">
+          
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-12">
+    </div>
+    </div>
+<!--             <div class="col-lg-3 col-md-3 col-sm-12"> -->
+<!--     </div> -->
+    </div>
+
+    <script>
+      var xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+      var yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+
+      new Chart("myChart", {
+        type: "line",
+        data: {
+          labels: xValues,
+          datasets: [{
+            fill: false,
+            lineTension: 0,
+            backgroundColor: "rgba(0,0,255,1.0)",
+            borderColor: "rgba(0,0,255,0.1)",
+            data: yValues
+          }]
+        },
+        options: {
+          legend: { display: false },
+          scales: {
+            yAxes: [{ ticks: { min: 6, max: 16 } }],
+          }
+        }
+      });
+      new Chart("myChart1", {
+        type: "line",
+        data: {
+          labels: xValues,
+          datasets: [{
+            fill: false,
+            lineTension: 0,
+            backgroundColor: "rgba(0,0,255,1.0)",
+            borderColor: "rgba(0,0,255,0.1)",
+            data: yValues
+          }]
+        },
+        options: {
+          legend: { display: false },
+          scales: {
+            yAxes: [{ ticks: { min: 6, max: 16 } }],
+          }
+        }
+      });
+    </script>
+    <div class=" mt-4">
+      <p>6.0 CONSUMFR IN BPDB:</p>
+      <p><b>6.a. Bulk Consumer</b></p>
+      <p>Number of Bulk consumer in the month of <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span> was <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.TOT_NO_BULK_CUST}"></span> (DPDC, DESCO, WZPDCL,
+        NWPDCL & <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.TOT_NO_REB_CUST}"></span> no'.c PBS) No's. respectively & consumer billed was <span>100%</span> compared to
+        <span>100%</span> in the previous month.
+      </p>
+    </div>
+
+    <div class=" mt-4">
+      <p><b>6.b. Retail Consumer</b></p>
+      <p>Number of Total Retail consumer and Active Retail in the month of <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span> was <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.TOT_NO_RETAIL_CUST}"></span> and
+       <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.TOT_NO_ACTIVE_CUST}"></span>  No's
+respectively & consumers billed was 100% compared to 100% in the previous month.
+      </p>
+      
+    </div>
+
+    <div class=" mt-4">
+      <p>7.0 ACCOUNTS RECEIVABLE/OUTSTANDING BILL:</p>
+      <p><b>7.a. Bulk</b></p>
+      <p>The Accounts receivable ( Principle Amount ) from the bulk consumer at the end of the <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span>
+        was <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.REC_BULK_CUST}"></span> MTk. Accounts receivable (Principle Amount) from DESA were <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.REC_DESA}"></span> MTk.
+        and DPDC were <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.REC_DPDC}"></span> MTk. DPDC's equivalent to <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.DPDC_EQM}"></span> months)</p>
+    </div>
+
+    <div class=" mt-4">
+      <p><b>7.b. Retail</b></p>
+      <p>The Accounts receivable ( Principle Amount ) from the Retail consumer of BPDB at the end of the
+        <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.CURR_MONTH}"></span> was
+        <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.REC_BPDB_RETAIL}"></span> MTk. <span th:each="s: ${iC_ES_FORWARDING}" th:text="${s.EQM_BPDB_RETAIL}"></span> months)
+      </p>
+    </div>
+
+    <div class="row mt-5" style="float: right;">
+      <p style="text-align: center;">(Badhan Chandra Basak) <br> General Manager <br> Commercial Operation, BPDB, Dhaka
+      </p>
+
+    </div>
+
+  </div>
+  <!-- 5th page  end-->
+
+<div class="pagebreak"> </div>
+  <!-- 6th page start  -->
+  <div class="container" style="margin-top: 15%;">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="">Memo No. <span>27.11.0000.701.87.001.2020.271</span></p>
+        <p class="">Circulation:</p>
+      </div>
+      <div class="col-md-6">
+        <p style="text-align: right;">Dated: <span>29.10.2020</span></p>
+      </div>
+    </div>
+   
+    <div class="row mt-4" style="float: left;">
+      <div class="col-md-12">
+        <p>1. &nbsp;&nbsp; Hon'ble Minister, Power Division, Ministry of power, Energy & Mineral Resources, GOV,
+          Bangladesh Secretarial, Dhaka</p>
+        <p>2. &nbsp;&nbsp; Secretary, Power Division. Ministry of Power, Energy & Mineral Resources, GOV, Bangladesh
+          Secretarial, Dhaka</p>
+        <p>3. &nbsp;&nbsp; Chairman, Bangladesh Energy Regulatory Commission (BERC), TCB Bhnban(4th Floor), I Kaowran
+          Bazar, Dhaka</p>
+        <p>4. &nbsp;&nbsp; Chairman, Bangladesh power development Board (Bpl)B), WAPDA Building, Dhaka</p>
+        <p>5. &nbsp;&nbsp; Managing Director, I)haka Power Distribution Company Ltd.(DPDCL), Bidyut Bhaban, l Abdul Gani
+          Road, Dhaka</p>
+        <p>6. &nbsp;&nbsp; Chairman, Rural Electrification Board (REB), Joarsahara. Khilkhel, Dhaka</p>
+        <p>7. &nbsp;&nbsp; Director General, Power Cell, MEMR. Bidyut Bhaban (7th Floor), I Abdul Gani Road, Dhaka</p>
+        <p>8. &nbsp;&nbsp; All Members of the Board, BPDB, Dhaka</p>
+        <p>9. &nbsp;&nbsp; Division chief (l&E). Planning commission., Bl(`ck No.-3, Room No.-13, Sher-e-Bangla Nagar,
+          Dhaka</p>
+        <p>10. &nbsp;&nbsp; Managing Director. Power Grid Company of Bangladesh (PGCB)Ltd., Aftab Nagar(Beside NLDC
+          Building)Badda,Dhaka-1212.</p>
+        <p>11. &nbsp;&nbsp; Managing Director, West Zone Power Distribution C6.mpany Ltd. (W7,PDCO), Biddut Bhahan,
+          Boyra, Rajshahi</p>
+        <p>12. &nbsp;&nbsp; Managing Director, West Zone Power Distribution C6.mpany Ltd. (W7,PDCO), Biddut Bhahan,
+          Boyra, Khulna</p>
+        <p>13. &nbsp;&nbsp; Director General (Monitoring Cell), Ministry of Finance, GOB, Bangladesh Secretariat, Dhaka
+        </p>
+        <p>14. &nbsp;&nbsp; Chief Engineer, P&D/ Generation/ Private Genei.ation/ Company Affair, BPDB, Dhaka</p>
+        <p>15. &nbsp;&nbsp; Chief Engineer, Chittngong/Mymensingli/Comiila/Sylhet Distribution Zone, BPDB</p>
+        <p>16. &nbsp;&nbsp; Controller. Accounts & Finance (with the request for arranging to check and reconcile the
+          relevant statistics, BPDB, Bidyut Bhaban, I Abdul Gani Road, Dhaka</p>
+        <p>17. &nbsp;&nbsp; Superintending Engineer, Energy Auditing Unit (EAU)/Consumer Affairs, Bidyut Bhaban, BPDB,
+          Dhaka</p>
+        <p>18. &nbsp;&nbsp; Director, System Planning, BPDB, WAPDA Building (5th Floor), Dhaka</p>
+        <p>19. &nbsp;&nbsp; Managing Director, I)haka Power Distribution Company Ltd.(DPDCL), Bidyut Bhaban, l Abdul
+          Gani Road, Dhaka</p>
+        <p>20. &nbsp;&nbsp; Director, IPP Cell-I/2/3 Bidyut Bhaban,I Abdul Gani Road, BPDB, Dhaka</p>
+        <p>21. &nbsp;&nbsp; Director, Programme, Bidyut Bhaban (14th floor, I Abdul Gani Road, BPDB, Dhaka</p>
+        <p>22. &nbsp;&nbsp; Senior System Analyst, Computer Centre, BPDB. WAPDA Building (4th floor), Dhaka</p>
+        <p>23. &nbsp;&nbsp; Director, Accounts/Finance, Biddyut Bhaban, I No. Abdul Gani Road, BPDB, Dhaka</p>
+        <p>24. &nbsp;&nbsp; MDirector, Public Relation, BPDB, WAPDA Building ( 10th Floor), Dhaka</p>
+        <p>25. &nbsp;&nbsp; Deputy Secretary. Distribution/Generation, BPDB, WAPDA Building, Dhaka.BPDB</p>
+        <p>26. &nbsp;&nbsp; Deputy Secretary (Co-ordination), Power Division, Ministry of Power, Energy & Mineral
+          Resources. GOB, Bangladesh, Dhaka.'</p>
+        <p>27. &nbsp;&nbsp; Secretariat, Dhaka.</p>
+        <p>28. &nbsp;&nbsp; CDeputy Chief, Power Division, Ministry of Power, Energy & Mineral Resources, GOB,
+          Bangladesh Secretariat, Dhaka.</p>
+        <p>29. &nbsp;&nbsp; EIT„ World Bank Resident Mission in Bangladesh, Plot No: E-32` Shere-Bangla Nagar, Agangaon,
+          Dhaka-1207</p>
+        <p>30. &nbsp;&nbsp; Head of Energy, Asian Development Bank, BRM, Plow No: Fj-31, Shere-Bangla Nagar, Agargaori,
+          Dhaka-12</p>
+        <p>31. &nbsp;&nbsp; JICA Representative, Ahmmed Mukammel Uddin, Senior program Manager, Office in Dhaka, Uday
+          Tower (8th Floor 57,57A). Gulshan Avenue(South), Circle-I, Dhaka-1212</p>
+        <p>32. &nbsp;&nbsp; The Resident Representative, International Monitary Fund (IMF), Bangladesh 2nd floor, Plot #
+          E32, Sher-E-Bangla Nagar Agargaon, Dhaka-1207</p>
+        <p>33. &nbsp;&nbsp; First Secretary (Engineering), AMOD, British High Commission, Baridhara, Dhaka</p>
+        <p>34. &nbsp;&nbsp; Kreditanstalt Fur Wiederanfbau (KFW) Office Dhaka, House 50 , Road 23, Block-B,Banani,
+          Dhaka-1213</p>
+        <p>35. &nbsp;&nbsp; Mission Director, USAID, American Embassy, Madane Avenue, Baridhara, Dhaka</p>
+        <p>36. &nbsp;&nbsp; Deputy Director,Current Production Section. National Accounting Wing, Baiigladesh Bureau of
+          Statistics, Statistics Building, F,-27/A, Agargaon, Dhaka- 1207</p>
+
+      </div>
+    </div>
+    <div class="row mt-5" style="float: right;">
+      <p style="text-align: center;">(Deputy General Manager) <br> Commercial Operation <br> BPDB, Dhaka </p>
+    </div>
+  </div></div>
+                </div>
+            </div>
+        </main>
+        <!-- page-content" -->
+    </div>
+    <!-- page-wrapper -->
+
+    <!-- using online scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+        </script>
+    <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- using local scripts -->
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+
+    <script src="../js/main.js"></script>
+    <script src="../js/script.min.js"></script>
+    <!-- datatable script  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+  
+    
+    
+     <script th:inline="javascript">
+     function mt_rand(min, max) {
+			var argc = arguments.length
+			if (argc === 0) {
+				min = 0
+				max = 2147483647
+			} else if (argc === 1) {
+				throw new Error(
+						'Warning: mt_rand() expects exactly 2 parameters, 1 given')
+			}
+			return Math.floor(Math.random() * (max - min + 1))
+					+ min
+		}
+		function random_color_part() {
+			// return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', 1);
+			return mt_rand(0, 255);
+		}
+
+		function random_color() {
+			return 'rgb(' + random_color_part() + ','
+					+ random_color_part() + ','
+					+ random_color_part() + ')';
+		}
+
+		//let $color = random_color();
+		
+ //chart stART 
+
+		
+		var real_data1 = /*[[${chartData20}]]*/'noValue';
+		var real_data2 = /*[[${chartData21}]]*/'noValue';
+		var real_data3 = /*[[${chartData22}]]*/'noValue';
+		var real_data4 = /*[[${chartData23}]]*/'noValue';
+		var real_data5 = /*[[${chartData24}]]*/'noValue';
+		
+		
+		var real_data6 = /*[[${chartData25}]]*/'noValue';
+		var real_data7 = /*[[${chartData26}]]*/'noValue';
+		var real_data8 = /*[[${chartData27}]]*/'noValue';
+		var real_data9 = /*[[${chartData28}]]*/'noValue';
+		var real_data10 = /*[[${chartData29}]]*/'noValue';
+		var real_data11 = /*[[${chartData30}]]*/'noValue';
+		
+		var real_data12 = /*[[${chartData31}]]*/'noValue';
+		var real_data13 = /*[[${chartData32}]]*/'noValue';
+		var real_data17 = /*[[${chartData17}]]*/'noValue';
+		var real_data14 = /*[[${chartData33}]]*/'noValue';
+		
+		var real_data15 = /*[[${chartData34}]]*/'noValue';
+		var real_data16 = /*[[${chartData35}]]*/'noValue';
+		
+		
+		
+		
+
+
+		
+		
+		let x1 = [];	
+		
+		for ( var property in real_data1 ) {
+			   x1.push(property) ; 
+			   
+			}
+			
+					let x2 = [];	
+		
+		for ( var property in real_data2 ) {
+			   x2.push(property) ; 
+			   
+			}
+		
+
+			let x3 = [];	
+		
+		for ( var property in real_data3 ) {
+			   x3.push(property) ; 
+			   
+			}
+		
+			let x4 = [];	
+		
+		for ( var property in real_data4 ) {
+			   x4.push(property) ; 
+			   
+			}
+			
+	let x5 = [];	
+		
+		for ( var property in real_data5) {
+			   x5.push(property) ; 
+			   
+			}
+		
+let x6 = [];	
+		
+		for ( var property in real_data6) {
+			   x6.push(property) ; 
+			   
+			}
+		
+let x7 = [];	
+		
+		for ( var property in real_data7) {
+			   x7.push(property) ; 
+			   
+			}
+		
+let x8 = [];	
+		
+		for ( var property in real_data8) {
+			   x8.push(property) ; 
+			   
+			}
+			
+let x9 = [];	
+		
+		for ( var property in real_data9) {
+			   x9.push(property) ; 
+			   
+			}
+			
+let x10 = [];	
+		
+		for ( var property in real_data10) {
+			   x10.push(property) ; 
+			   
+			}
+		
+let x11 = [];	
+		
+		for ( var property in real_data11) {
+			   x11.push(property) ; 
+			   
+			}
+		
+		
+		let x12 = [];	
+				
+				for ( var property in real_data12) {
+					   x12.push(property) ; 
+					   
+					}
+			
+				
+				
+				let x13 = [];	
+						
+						for ( var property in real_data13) {
+							   x13.push(property) ; 
+							   
+							}
+							let x17 = [];	
+						
+						for ( var property in real_data17) {
+							   x17.push(property) ; 
+							   
+							}
+					
+	let x14 = [];	
+						
+						for ( var property in real_data14) {
+							   x14.push(property) ; 
+							   
+							}
+					
+	let x15= [];	
+						
+						for ( var property in real_data15) {
+							   x15.push(property) ; 
+							   
+							}
+						
+	let x16= [];	
+						
+						for ( var property in real_data16) {
+							   x16.push(property) ; 
+							   
+							}
+					
+			
+			
+//			console.log(x2);
+//			let i =0;
+
+		
+		
+
+
+
+		$(document).ready(function() {
+			google.charts.load('current', {
+				packages : [ 'corechart', 'bar' ]
+			});
+//			google.charts.setOnLoadCallback(drawColumnChart);
+			google.charts.setOnLoadCallback(drawColumnChart1);
+			google.charts.setOnLoadCallback(drawColumnChart2);
+			google.charts.setOnLoadCallback(drawColumnChart3);
+ 			google.charts.setOnLoadCallback(drawColumnChart4);
+			google.charts.setOnLoadCallback(drawColumnChart5);
+			
+			google.charts.setOnLoadCallback(drawColumnChart6);
+			
+			google.charts.setOnLoadCallback(drawColumnChart7);
+			google.charts.setOnLoadCallback(drawColumnChart8);
+			google.charts.setOnLoadCallback(drawColumnChart9);
+			google.charts.setOnLoadCallback(drawColumnChart10);
+			google.charts.setOnLoadCallback(drawColumnChart11);
+			google.charts.setOnLoadCallback(drawColumnChart12);
+			google.charts.setOnLoadCallback(drawColumnChart13);
+			google.charts.setOnLoadCallback(drawColumnChart14);
+			google.charts.setOnLoadCallback(drawColumnChart15);
+			google.charts.setOnLoadCallback(drawColumnChart16);
+			
+			
+			
+			
+		
+		
+			
+		});
+						//1th chart start
+						
+		
+							function drawColumnChart1() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'BILLED UNIT');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data1).forEach(
+									function(key) {
+										data.addRow([ key, real_data1[key],
+												random_color(),real_data1[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 350,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.PieChart(
+									document.getElementById('chart_div1'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//1st chart end
+						
+						
+						
+						//2th chart start
+						
+		
+							function drawColumnChart2() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'BILLED UNIT');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data2).forEach(
+									function(key) {
+										data.addRow([ key, real_data2[key],
+												random_color(),real_data2[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : 'BILLED UNIT'
+								},
+// 								pieHole: 0.4,
+								width: 350,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.PieChart(
+									document.getElementById('chart_div2'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//2nd chart end
+						
+						
+											
+						
+						//3rd chart start
+						
+		
+							function drawColumnChart3() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'BILLED UNIT');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data3).forEach(
+									function(key) {
+										data.addRow([ key, real_data3[key],
+												random_color(),real_data3[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : 'BILLED UNIT'
+								},
+// 								pieHole: 0.4,
+								width: 350,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.PieChart(
+									document.getElementById('chart_div3'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//3rd chart end
+						
+						
+						
+						
+						//4th chart start
+						
+		
+							function drawColumnChart4() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'BILLED UNIT');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data4).forEach(
+									function(key) {
+										data.addRow([ key, real_data4[key],
+												random_color(),real_data4[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : 'BILLED UNIT'
+								},
+// 								pieHole: 0.4,
+								width: 350,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.PieChart(
+									document.getElementById('chart_div4'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//4th chart end
+						
+						
+										
+						//5th chart start
+						
+		
+							function drawColumnChart5() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'BILLED UNIT');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data5).forEach(
+									function(key) {
+										data.addRow([ key, real_data5[key],
+												random_color(),real_data5[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : 'BILLED UNIT'
+								},
+// 								pieHole: 0.4,
+								width: 350,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.PieChart(
+									document.getElementById('chart_div5'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//5th chart end
+						
+						
+										
+										
+						//6th chart start
+						
+		
+							function drawColumnChart6() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'Utility Wise C/B ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data6).forEach(
+									function(key) {
+										data.addRow([ key, real_data6[key],
+												random_color(),real_data6[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : 'Utility Wise C/B'
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.ColumnChart(
+									document.getElementById('chart_div6'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//6th chart end
+						
+						
+						
+						//7th chart start
+						
+		
+							function drawColumnChart7() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'Utility Wise C/B ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data7).forEach(
+									function(key) {
+										data.addRow([ key, real_data7[key],
+												random_color(),real_data7[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.ColumnChart(
+									document.getElementById('chart_div7'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//7th chart end
+						
+						
+							
+						//8th chart start
+						
+		
+							function drawColumnChart8() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'Utility Wise C/B ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data8).forEach(
+									function(key) {
+										data.addRow([ key, real_data8[key],
+												random_color(),real_data8[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.ColumnChart(
+									document.getElementById('chart_div8'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//8th chart end
+						
+									
+						
+						
+						//9th chart start
+						
+		
+							function drawColumnChart9() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'Utility Wise C/B ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data9).forEach(
+									function(key) {
+										data.addRow([ key, real_data9[key],
+												random_color(),real_data9[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.PieChart(
+									document.getElementById('chart_div9'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//9th chart end
+						
+									
+						//10th chart start
+						
+		
+							function drawColumnChart10() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'Utility Wise C/B ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data10).forEach(
+									function(key) {
+										data.addRow([ key, real_data10[key],
+												random_color(),real_data10[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.PieChart(
+									document.getElementById('chart_div10'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//10th chart end
+						
+									
+						//11th chart start
+						
+		
+							function drawColumnChart11() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', 'Utility Wise C/B ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data11).forEach(
+									function(key) {
+										data.addRow([ key, real_data11[key],
+												random_color(),real_data11[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 450,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.PieChart(
+									document.getElementById('chart_div11'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//11th chart end
+						
+						
+										
+						//12th chart start
+						
+		
+							function drawColumnChart12() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', ' ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data12).forEach(
+									function(key) {
+										data.addRow([ key, real_data12[key],
+												random_color(),real_data12[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.ColumnChart(
+									document.getElementById('chart_div12'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//12th chart end
+						
+						//13th chart start
+						
+		
+							function drawColumnChart13() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', ' ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data13).forEach(
+									function(key) {
+										data.addRow([ key, real_data13[key],
+												random_color(),real_data13[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									title : '',
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.ColumnChart(
+									document.getElementById('chart_div13'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//13th chart end
+						
+						
+						
+						//14th chart start
+						
+		
+							function drawColumnChart14() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', ' ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data14).forEach(
+									function(key) {
+										data.addRow([ key, real_data14[key],
+												random_color(),real_data14[key] ]);
+
+									});
+							var options = {
+								title : '',
+								legend: { position: 'top', maxLines: 5 },
+								hAxis : {
+									direction:-1,
+        							slantedText:true,
+									slantedTextAngle:45,
+								},
+								vAxis : {
+									title : ''
+								},
+// 								pieHole: 0.4,
+								width: 550,
+								height: 350,
+								 //pieSliceText: 'value-and-percentage'
+								//pieSliceText: 'value'
+							};
+							var chart = new google.visualization.ColumnChart(
+									document.getElementById('chart_div14'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//14th chart end
+						
+						
+									//15th chart start
+						
+		
+							function drawColumnChart15() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', ' ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data15).forEach(
+									function(key) {
+										data.addRow([ key, real_data15[key],
+												random_color(),real_data15[key] ]);
+
+									});
+
+							var options = {
+									title : '',
+									legend: { position: 'top', maxLines: 5 },
+									hAxis : {
+										title : '',
+									},
+									vAxis : {
+										title : ''
+									},
+//	 								pieHole: 0.4,
+									width: 750,
+									height: 550,
+// 									pointShape: 'star',
+									 //pieSliceText: 'value-and-percentage'
+									//pieSliceText: 'value'
+								};
+							
+							var chart = new google.visualization.LineChart(
+									document.getElementById('chart_div15'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//15th chart end
+						
+						
+										
+									//16th chart start
+						
+		
+							function drawColumnChart16() {
+							var data = new google.visualization.DataTable();
+							data.addColumn('string', 'Feeder');
+							data.addColumn('number', ' ');
+							data.addColumn({
+								type : 'string',
+								role : 'style'
+							});
+							data.addColumn({ type : 'number',role: 'annotation' });
+							Object.keys(real_data16).forEach(
+									function(key) {
+										data.addRow([ key, real_data16[key],
+												random_color(),real_data16[key] ]);
+
+									});
+
+							var options = {
+									title : '',
+									legend: { position: 'top', maxLines: 5 },
+									hAxis : {
+										title : '',
+									},
+									vAxis : {
+										title : ''
+									},
+//	 								pieHole: 0.4,
+									width: 750,
+									height: 550,
+// 									pointShape: 'star',
+									 //pieSliceText: 'value-and-percentage'
+									//pieSliceText: 'value'
+								};
+							
+							var chart = new google.visualization.LineChart(
+									document.getElementById('chart_div16'));
+							chart.draw(data, options);
+							
+							
+							google.visualization.events.addListener(chart,
+									'select', selectHandler);
+							function selectHandler(e) {
+								alert(data.getValue(
+										chart.getSelection()[0].row, 0));
+							}
+						}
+						
+						//16th chart end
+						
+						
+						
+						
+						
+    </script>
+    <script type="text/javascript">
+    function printContent(el){
+  
+	 var divToPrint=document.getElementById(el);
+
+	  var newWin=window.open('','Print-Window');
+
+	  newWin.document.open();
+
+	  newWin.document.write('<html> <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"crossorigin="anonymous">');
+	  newWin.document.write('<style> @media print {.pagebreak { page-break-before: always; }}  *{font-size: 9px;} table, th, td {border: 1px solid black;} .table{border: 2px solid black;border-collapse: collapse;width: 100%;} </style>'); 
+	  newWin.document.write('<body onload="window.print()"> ');
+	  
+	  
+	  
+	  newWin.document.write(divToPrint.innerHTML);
+	  
+	  newWin.document.write('</body></html>');
+
+	  newWin.document.close();
+
+	  setTimeout(function(){newWin.close();},1000);
+}
+    </script>
+    
+</body>
+
+</html>

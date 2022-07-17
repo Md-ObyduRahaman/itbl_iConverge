@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iConverge</title>
+
+    <!-- Bootstrap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+<!-- using online links -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+	<link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+		
+	<link rel="stylesheet" href="../../css/main.css">
+	<link rel="stylesheet" href="../../css/sidebar-themes.css">
+	<link rel="stylesheet" href="../../css/form-style.css">
+	
+</head>
+<body>
+
+<div class="page-wrapper default-theme  bg1 toggled">
+		<span th:remove="tag" th:utext="${dataHtml}"></span>
+		<!-- page-content  -->
+		<main class="page-content">
+			<div id="overlay" class="overlay"></div>
+			<div class="container-fluid" style="padding: 0px;">
+				<div class="title-bar"
+					style="height: 90px; background-color: #eaeaea; box-shadow: 0 0 0.875rem 0 rgb(33 37 41 / 10%) !important;">
+					<a id="toggle-sidebar" class="btn btn-secondary rounded-0" href="#"
+						style="margin: 20px; background: #3ab54a;">
+						<span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								class="bi bi-list" viewBox="0 0 16 16">
+								<path fill-rule="evenodd"
+									d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+							</svg></span>
+					</a>
+				</div>
+				<!-- heading start -->
+
+		<div class="container">
+					<form >
+						<div class="card mt-5 mb-5">
+							<div class="row pt-4 pb-4 card-body">
+								
+								<div class="col-lg-2 col-md-2 col-sm-12 text-center">
+									<input type="button" class="btn btn-lg btn-danger mr-1 mb-1" id="printme"
+										value="Print" onclick="printContent('divName')" />
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+
+    <!-- Heading of the page -->
+    <div id="divName">
+    <div class="first-part">
+        <div class="text-end mt-1 me-3">
+            Form : 310/2
+        </div>
+    
+        <div class="text-start text-md-center">
+            <h2>BANGLADESH POWER DEVELOPMENT BORAD</h2>
+            <h5>MOD FOR THE MONTH OF <span th:text="${month}"></span></h5>
+        </div>
+    
+        <div class="text-start ms-md-4">
+        
+            <h6>Name of the office : <span th:text="${location}"></span> </h6>
+						<h6>Name of the Circle : <span th:text="${circle}"></span></h6>
+						<h6>Name of the RAO : <span th:text="${rao}"></span></h6>
+						<br>
+						
+						<h6>1.2. CONSUMER BILLED & ENERGY SOLD :</h6>
+        </div>   
+        
+        
+    </div>  
+
+    <!-- first table of the page start -->
+    <table class="table table-bordered ms-md-4" style=" border: 1px solid black; width: 90%;">
+    
+    
+        <thead>
+            <!-- table heading start -->
+            <tr>
+                <th scope="col" rowspan="2" style="border: 1px solid black">Category</th>
+                <th scope="col" rowspan="2" style="border: 1px solid black">Previous Month End Consumer</th>
+                <th scope="col" rowspan="2" style="border: 1px solid black">Newly Connected Consumer</th>
+                <th scope="col" rowspan="2" style="border: 1px solid black">Permanently Disconnected Consumer</th>
+                <th scope="col" rowspan="2" style="border: 1px solid black">Total Number of Consumer</th>
+                <th scope="col" rowspan="2" style="border: 1px solid black">Disconnected Seasonal Consumer</th>
+                <th scope="col" rowspan="2" style="border: 1px solid black">Active Consumer</th>
+                <th scope="col" rowspan="2" style="border: 1px solid black">Number Of Consumers Billed</th>
+                <th scope="col" colspan="3" style="border: 1px solid black">Energy Sold in Kwh</th>
+              </tr>
+              <tr>
+                <th scope="col" style="border: 1px solid black">Current Month</th>
+                <th scope="col" style="border: 1px solid black">Previous Month</th>
+                <th scope="col" style="border: 1px solid black">Category</th>
+              </tr>
+               <!-- table heading end -->
+        </thead>
+        <tbody>
+        <tr>
+        
+        <td style="border: 1px solid black"><b>1</b></td>
+        <td style="border: 1px solid black"><b>2</b></td>
+        <td style="border: 1px solid black"><b>3</b></td>
+        <td style="border: 1px solid black"><b>4</b></td>
+        <td style="border: 1px solid black"><b>5(2+3-4)</b></td>
+        <td style="border: 1px solid black"><b>6</b></td>
+        <td style="border: 1px solid black"><b>7(5-6)</b></td>
+        <td style="border: 1px solid black"><b>8</b></td>
+        <td style="border: 1px solid black"><b>9</b></td>
+        <td style="border: 1px solid black"><b>10</b></td>
+        <td style="border: 1px solid black"><b>11</b></td>
+        
+        </tr>
+            <tr th:each="t: ${listMOD_ENERGY_SOLD_REPORT}">
+               
+                <td th:text="${t.CATEGORY}" style="border: 1px solid black"></td>
+                <td th:text="${t.LIVE_CONSUMER_PREV_MONTH}" style="border: 1px solid black"></td>
+                <td th:text="${t.NEW_CONSUMER_IN_MONTH}" style="border: 1px solid black"></td>
+                <td th:text="${t.PD_CONSUMER_IN_MONTH}" style="border: 1px solid black"></td>
+                <td th:text="${t.TTL_COUSTOMER}" style="border: 1px solid black"></td>
+                <td th:text="${t.TD_CONSUMER}" style="border: 1px solid black"></td>
+                <td th:text="${t.ACTIVE_CUSTOMER}" style="border: 1px solid black"></td>
+                <td th:text="${t.BILLED_CONSUMER}" style="border: 1px solid black"></td>
+                <td th:text="${t.TOTAL_ENERGY_SOLD}" style="border: 1px solid black"></td>
+                <td th:text="${t.PREV_MONTH_ENERGY_SOLD}" style="border: 1px solid black"></td>
+                 <td th:text="${t.CATEGORY_IV}" style="border: 1px solid black"></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- first table of the page end -->
+
+     
+    <div class="text-start ms-md-4 text-decoration-underline">New Connection Information:</div>
+
+    <div class="text-start ms-md-4">
+        <div class="my-1">No. of Application pending at the end of previous Month : </div>
+        <div class="my-1">(+) No. of Application Received during the Month : </div>
+        <div class="my-1">(-) Newly Connected Consumer during the month : <b><span th:text="${TOTAL_NEW_CONSUMER_IN_MONTH}"></span></b> </div>
+        <div class="my-1">No. of Application Pending at the end of Current Month : </div>
+   
+        <div class="my-1"> Certified that above date are true Correct & based on records.</div>
+    </div>
+    
+    <!-- footer of the page start -->
+  
+
+      <div class="mt-4">
+        <div class="row ms-md-5 pt-5">
+            <div class="col-4">Prepared By</div>
+            <div class="col-4">Checked BY</div>
+            <div class="col-4">(Signature and Seal) <br> Head of the Office </div>
+        </div>
+      </div>
+      </div>
+			</div>
+      <!-- footer of the page end -->
+
+    <!-- JS, Jquery, etc -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+		</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+		</script>
+	<script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<script src="../../js/main.js"></script>
+	
+	<script type="text/javascript">
+         function printContent(el){
+           
+         	 var divToPrint=document.getElementById(el);
+         
+         	  var newWin=window.open('','Print-Window');
+         
+         	  newWin.document.open();
+         
+         	  newWin.document.write('<html> <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"crossorigin="anonymous">');
+         	  /* newWin.document.write('<style> @media print {.pagebreak { page-break-before: always; }} @page{size:landscape;} *{font-size: 7px;} table, th, td {border: 1px solid black;} .table{border: 2px solid black;border-collapse: collapse;width: 100%;} </style>');  */
+         	  newWin.document.write('<style> @media print   *{font-size: 20px; font-weight: bold !important;}  table{margin-left: 30px;} table, th, td{border: 2px solid black !important;border-collapse: collapse !important;} th, td {border: 1px solid black !important; margin: 0 !important; padding: 5 !important; color: black !important;}</style>'); 
+         	  newWin.document.write('<body onload="window.print()"> ');
+         	  
+         	  
+         	  
+         	  newWin.document.write(divToPrint.innerHTML);
+         	  
+         	  newWin.document.write('</body></html>');
+         
+         	  newWin.document.close();
+         
+         	  setTimeout(function(){newWin.close();},1000);
+         }
+      </script>
+
+</body>
+</html>

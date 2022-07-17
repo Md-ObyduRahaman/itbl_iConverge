@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>iConverge</title>
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/sidebar-themes.css">
+    <link rel="stylesheet" href="../css/form-style.css">
+
+    <style type="text/css">
+/* table border  */
+table, tr, th, td {
+    border: 1px solid black;
+  }
+
+.table{
+	width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+  
+ /* index description center   */
+.center{
+    margin-left: 62vh;
+    display: inline;
+}
+
+</style>
+
+</head>
+
+<body>
+    <div class="page-wrapper default-theme  bg1 toggled">
+        <span th:remove="tag" th:utext="${dataHtml}"></span>
+
+        
+        <!-- page-content  -->
+        <main class="page-content" style="overflow:auto;">
+            <div id="overlay" class="overlay"></div>
+            <div class="container-fluid" style="padding: 0px; ">
+                <div class="title-bar"
+                    style="height: 90px; background-image: url(../img/bn.jpeg) !important;background-repeat: no-repeat;width: 100%;height: 100%;background-size: cover;">
+                    <a id="toggle-sidebar" class="btn btn-secondary rounded-0" href="#"
+                        style="margin: 20px; background: #3ab54a;">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-list" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                            </svg></span>
+                    </a>
+                </div>
+                <div class="container">
+					<form th:action="@{/IC_ES_ENRG_PUR_PAID_IPP}" method="post"
+						th:object="${reportModel}">
+						<div class="card mt-5 mb-5">
+							<div class="row pt-4 pb-4 card-body">
+								<div class="col-lg-2 col-md-2 col-sm-12 mt-3 text-center">
+									<label for="bill" class="">Month :</label>
+								</div>
+								<div class="col-lg-3 col-md-3 col-sm-12">
+									<select id="one" class="form-control" name="one">
+										<option value="">Select Month</span></option>
+
+										<option th:each="b : ${billList}"
+											th:value="${b.BILL_CYCLE_CODE}"
+											th:text="${b.BILL_CYCLE_DESC}"
+											th:selected="${b.BILL_CYCLE_CODE}==${reportModel.one}"></option>
+									</select>
+								</div>
+								<div class="col-lg-2 col-md-2 col-sm-12 text-center">
+									<input type="submit" value="Submit"
+										class="btn btn-lg btn-success mr-1 mb-1" />
+								</div>
+								<div class="col-lg-2 col-md-2 col-sm-12 text-center">
+								<input type="button"
+						class="btn btn-lg btn-danger mr-1 mb-1"
+						id="printme" value="Print" onclick="printContent('divName')" />
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+
+<div id="divName" class="container" >
+<!-- Table No 32  -->
+    <div class="container pt-4 pb-4">
+        <div class="row pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="text-align: center;">Energy Purchased From and Amount Paid to IPP</h3>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table mt-4" style="text-align: center;">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                    <tr style="background-color:#ECD8FD">
+                        <th style="vertical-align: middle;" rowspan="2">Year/Fiscal Year</th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNa}"></span></th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNb}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNc}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNd}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNe}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNf}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNg}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNh}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNi}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNj}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsaNk}"></span></th>  
+                    </tr>
+                    <tr style="background-color:#ECD8FD">
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                    </tr>
+                    <tr th:each="t: ${andPaidIppsa}">
+                        <th style="text-align: center;" th:text="${t.YRMON}"></th>
+                        <td style="text-align: center;" th:text="${t.ENERGY1}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL1}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE1}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY2}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL2}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE2}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY3}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL3}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE3}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY4}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL4}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE4}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY5}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL5}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE5}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY6}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL6}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE6}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY7}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL7}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE7}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY8}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL8}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE8}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY9}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL9}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE9}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY10}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL10}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE10}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY11}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL11}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE11}"></td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="pagebreak"> </div>
+    <!-- Table No 33  -->
+    <div class="container pt-4 pb-4">
+        <div class="row pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="text-align: center;">Energy Purchased From and Amount Paid to IPP</h3>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table mt-4" style="text-align: center;">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                    <tr style="background-color:#ECD8FD">
+                        <th style="vertical-align: middle;" rowspan="2">Year/Fiscal Year</th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNa}"></span></th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNb}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNc}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNd}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNe}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNf}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNg}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNh}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNi}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNj}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsbNk}"></span></th>  
+                    </tr>
+                    <tr style="background-color:#ECD8FD">
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                    </tr>
+                    <tr th:each="t: ${andPaidIppsb}">
+                        <th style="text-align: center;" th:text="${t.YRMON}"></th>
+                        <td style="text-align: center;" th:text="${t.ENERGY1}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL1}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE1}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY2}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL2}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE2}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY3}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL3}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE3}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY4}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL4}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE4}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY5}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL5}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE5}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY6}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL6}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE6}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY7}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL7}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE7}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY8}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL8}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE8}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY9}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL9}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE9}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY10}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL10}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE10}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY11}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL11}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE11}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="pagebreak"> </div>
+    <!-- Table No 34  -->
+    <div class="container pt-4 pb-4">
+        <div class="row pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="text-align: center;">Energy Purchased From and Amount Paid to IPP</h3>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table mt-4" style="text-align: center;">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                    <tr style="background-color:#ECD8FD">
+                        <th style="vertical-align: middle;" rowspan="2">Year/Fiscal Year</th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNa}"></span></th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNb}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNc}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNd}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNe}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNf}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNg}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNh}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNi}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNj}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppscNk}"></span></th>  
+                    </tr>
+                    <tr style="background-color:#ECD8FD">
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                    </tr>
+                    <tr th:each="t: ${andPaidIppsc}">
+                        <th style="text-align: center;" th:text="${t.YRMON}"></th>
+                        <td style="text-align: center;" th:text="${t.ENERGY1}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL1}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE1}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY2}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL2}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE2}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY3}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL3}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE3}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY4}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL4}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE4}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY5}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL5}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE5}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY6}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL6}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE6}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY7}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL7}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE7}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY8}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL8}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE8}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY9}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL9}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE9}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY10}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL10}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE10}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY11}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL11}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE11}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+<div class="pagebreak"> </div>
+    <!-- Table No 35  -->
+
+    <div class="container pt-4 pb-4">
+        <div class="row pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="text-align: center;">Energy Purchased From and Amount Paid to IPP</h3>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table mt-4" style="text-align: center;">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                    <tr style="background-color:#ECD8FD">
+                        <th style="vertical-align: middle;" rowspan="2">Year/Fiscal Year</th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNa}"></span></th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNb}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNc}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNd}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNe}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNf}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNg}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNh}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNi}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNj}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsdNk}"></span></th>  
+                    </tr>
+                    <tr style="background-color:#ECD8FD">
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                    </tr>
+                    <tr th:each="t: ${andPaidIppsd}">
+                        <th style="text-align: center;" th:text="${t.YRMON}"></th>
+                        <td style="text-align: center;" th:text="${t.ENERGY1}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL1}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE1}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY2}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL2}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE2}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY3}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL3}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE3}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY4}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL4}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE4}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY5}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL5}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE5}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY6}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL6}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE6}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY7}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL7}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE7}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY8}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL8}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE8}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY9}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL9}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE9}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY10}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL10}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE10}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY11}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL11}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE11}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+<div class="pagebreak"> </div>
+    <!-- Table No 36  -->
+
+    <div class="container pt-4 pb-4">
+        <div class="row pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="text-align: center;">Energy Purchased From and Amount Paid to IPP</h3>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table mt-4" style="text-align: center;">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                    <tr style="background-color:#ECD8FD">
+                        <th style="vertical-align: middle;" rowspan="2">Year/Fiscal Year</th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNa}"></span></th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNb}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNc}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNd}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNe}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNf}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNg}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNh}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNi}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNj}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppseNk}"></span></th>  
+                    </tr>
+                    <tr style="background-color:#ECD8FD">
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                    </tr>
+                    <tr th:each="t: ${andPaidIppse}">
+                        <th style="text-align: center;" th:text="${t.YRMON}"></th>
+                        <td style="text-align: center;" th:text="${t.ENERGY1}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL1}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE1}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY2}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL2}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE2}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY3}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL3}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE3}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY4}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL4}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE4}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY5}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL5}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE5}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY6}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL6}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE6}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY7}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL7}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE7}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY8}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL8}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE8}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY9}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL9}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE9}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY10}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL10}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE10}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY11}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL11}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE11}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+<div class="pagebreak"> </div>
+    <!-- Table No 37  -->
+
+    <div class="container pt-4 pb-4">
+        <div class="row pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="text-align: center;">Energy Purchased From and Amount Paid to IPP</h3>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table mt-4" style="text-align: center;">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                   <tr style="background-color:#ECD8FD">
+                        <th style="vertical-align: middle;" rowspan="2">Year/Fiscal Year</th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNa}"></span></th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNb}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNc}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNd}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNe}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNf}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNg}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNh}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNi}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNj}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsfNk}"></span></th>  
+                    </tr>
+                    <tr style="background-color:#ECD8FD">
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                    </tr>
+                    <tr th:each="t: ${andPaidIppsf}">
+                        <th style="text-align: center;" th:text="${t.YRMON}"></th>
+                        <td style="text-align: center;" th:text="${t.ENERGY1}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL1}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE1}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY2}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL2}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE2}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY3}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL3}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE3}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY4}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL4}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE4}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY5}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL5}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE5}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY6}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL6}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE6}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY7}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL7}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE7}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY8}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL8}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE8}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY9}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL9}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE9}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY10}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL10}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE10}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY11}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL11}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE11}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+<div class="pagebreak"> </div>
+    <!-- Table No 38  -->
+
+    <div class="container pt-4 pb-4">
+        <div class="row pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="text-align: center;">Energy Purchased From and Amount Paid to IPP</h3>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table mt-4" style="text-align: center;">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                    <tr style="background-color:#ECD8FD">
+                        <th style="vertical-align: middle;" rowspan="2">Year/Fiscal Year</th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNa}"></span></th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNb}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNc}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNd}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNe}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNf}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNg}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNh}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNi}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNj}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppsgNk}"></span></th>  
+                    </tr>
+                    <tr style="background-color:#ECD8FD">
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                    </tr>
+                    <tr th:each="t: ${andPaidIppsg}">
+                        <th style="text-align: center;" th:text="${t.YRMON}"></th>
+                        <td style="text-align: center;" th:text="${t.ENERGY1}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL1}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE1}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY2}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL2}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE2}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY3}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL3}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE3}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY4}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL4}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE4}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY5}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL5}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE5}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY6}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL6}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE6}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY7}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL7}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE7}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY8}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL8}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE8}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY9}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL9}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE9}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY10}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL10}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE10}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY11}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL11}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE11}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="pagebreak"> </div>
+    <div class="container pt-4 pb-4">
+        <div class="row pt-3 pb-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="text-align: center;">Energy Purchased From and Amount Paid to IPP</h3>
+            </div>
+        </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table mt-4" style="text-align: center;">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                   <tr style="background-color:#ECD8FD">
+                        <th style="vertical-align: middle;" rowspan="2">Year/Fiscal Year</th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNa}"></span></th>
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNb}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNc}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNd}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNe}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNf}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNg}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNh}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNi}"></span></th>  
+                        <th colspan="3" scope="colgroup"><span th:text="${andPaidIppshNj}"></span></th>  
+                        <th colspan="3" scope="colgroup">IPP/RPP Total</th>  
+                    </tr>
+                    <tr style="background-color:#ECD8FD">
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                        <th scope="col">Energy<br>(Mkwh)</th>
+                        <th scope="col">Bill(Mtk)</th>
+                        <th scope="col">Avg-Rate(TK/kwh)</th>
+                    </tr>
+                    <tr th:each="t: ${andPaidIppsh}">
+                        <th style="text-align: center;" th:text="${t.YRMON}"></th>
+                        <td style="text-align: center;" th:text="${t.ENERGY1}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL1}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE1}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY2}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL2}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE2}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY3}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL3}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE3}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY4}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL4}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE4}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY5}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL5}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE5}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY6}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL6}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE6}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY7}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL7}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE7}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY8}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL8}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE8}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY9}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL9}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE9}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY10}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL10}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE10}"></td>
+                        <td style="text-align: center;" th:text="${t.ENERGY11}"></td>
+                        <td style="text-align: center;" th:text="${t.BILL11}"></td>
+                        <td style="text-align: center;" th:text="${t.RATE11}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div></div>
+            </div>
+        </main>
+        <!-- page-content" -->
+    </div>
+    <!-- page-wrapper -->
+
+    <!-- using online scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+        </script>
+    <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- using local scripts -->
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+
+    <script src="../js/main.js"></script>
+    <script type="text/javascript">
+function printContent(el){
+  
+	 var divToPrint=document.getElementById(el);
+
+	  var newWin=window.open('','Print-Window');
+
+	  newWin.document.open();
+
+	  newWin.document.write('<html> <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"crossorigin="anonymous">');
+	  newWin.document.write('<style> @media print {.pagebreak { page-break-before: always; }} @page{size:landscape;} *{font-size: 4px;} table, th, td {border: 1px solid black;} table{border: 1px solid black;border-collapse: separate;border-spacing: 0px;} table th, table td{padding: 0px;} body {-webkit-print-color-adjust: exact!important;} </style>'); 
+	  newWin.document.write('<body onload="window.print()"> ');
+	  
+	  
+	  
+	  newWin.document.write(divToPrint.innerHTML);
+	  
+	  newWin.document.write('</body></html>');
+
+	  newWin.document.close();
+
+	  setTimeout(function(){newWin.close();},1000);
+}
+</script>
+</body>
+
+</html>

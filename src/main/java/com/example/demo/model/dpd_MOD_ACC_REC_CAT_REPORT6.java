@@ -1,0 +1,133 @@
+package com.example.demo.model;
+
+public class dpd_MOD_ACC_REC_CAT_REPORT6 {
+	String LOCATION_CODE,LOCATION_NAME,CIRCLE_DESC,RAO_NAME,BILL_CYCLE_CODE,BILL_MONTH,USAFE_CAT_NAME,CATEGORY,IV_CATEGORY,MINIMUM_NO_OF_BILLS,MINIMUM_ENERGY_SOLD,MINIMUM_BILLED_AMT;
+
+	public dpd_MOD_ACC_REC_CAT_REPORT6() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public dpd_MOD_ACC_REC_CAT_REPORT6(String lOCATION_CODE, String lOCATION_NAME, String cIRCLE_DESC, String rAO_NAME,
+			String bILL_CYCLE_CODE, String bILL_MONTH, String uSAFE_CAT_NAME, String cATEGORY, String iV_CATEGORY,
+			String mINIMUM_NO_OF_BILLS, String mINIMUM_ENERGY_SOLD, String mINIMUM_BILLED_AMT) {
+		super();
+		LOCATION_CODE = lOCATION_CODE;
+		LOCATION_NAME = lOCATION_NAME;
+		CIRCLE_DESC = cIRCLE_DESC;
+		RAO_NAME = rAO_NAME;
+		BILL_CYCLE_CODE = bILL_CYCLE_CODE;
+		BILL_MONTH = bILL_MONTH;
+		USAFE_CAT_NAME = uSAFE_CAT_NAME;
+		CATEGORY = cATEGORY;
+		IV_CATEGORY = iV_CATEGORY;
+		MINIMUM_NO_OF_BILLS = mINIMUM_NO_OF_BILLS;
+		MINIMUM_ENERGY_SOLD = mINIMUM_ENERGY_SOLD;
+		MINIMUM_BILLED_AMT = mINIMUM_BILLED_AMT;
+	}
+
+	public String getLOCATION_CODE() {
+		return LOCATION_CODE;
+	}
+
+	public void setLOCATION_CODE(String lOCATION_CODE) {
+		LOCATION_CODE = lOCATION_CODE;
+	}
+
+	public String getLOCATION_NAME() {
+		return LOCATION_NAME;
+	}
+
+	public void setLOCATION_NAME(String lOCATION_NAME) {
+		LOCATION_NAME = lOCATION_NAME;
+	}
+
+	public String getCIRCLE_DESC() {
+		return CIRCLE_DESC;
+	}
+
+	public void setCIRCLE_DESC(String cIRCLE_DESC) {
+		CIRCLE_DESC = cIRCLE_DESC;
+	}
+
+	public String getRAO_NAME() {
+		return RAO_NAME;
+	}
+
+	public void setRAO_NAME(String rAO_NAME) {
+		RAO_NAME = rAO_NAME;
+	}
+
+	public String getBILL_CYCLE_CODE() {
+		return BILL_CYCLE_CODE;
+	}
+
+	public void setBILL_CYCLE_CODE(String bILL_CYCLE_CODE) {
+		BILL_CYCLE_CODE = bILL_CYCLE_CODE;
+	}
+
+	public String getBILL_MONTH() {
+		return BILL_MONTH;
+	}
+
+	public void setBILL_MONTH(String bILL_MONTH) {
+		BILL_MONTH = bILL_MONTH;
+	}
+
+	public String getUSAFE_CAT_NAME() {
+		return USAFE_CAT_NAME;
+	}
+
+	public void setUSAFE_CAT_NAME(String uSAFE_CAT_NAME) {
+		USAFE_CAT_NAME = uSAFE_CAT_NAME;
+	}
+
+	public String getCATEGORY() {
+		return CATEGORY;
+	}
+
+	public void setCATEGORY(String cATEGORY) {
+		CATEGORY = cATEGORY;
+	}
+
+	public String getIV_CATEGORY() {
+		return IV_CATEGORY;
+	}
+
+	public void setIV_CATEGORY(String iV_CATEGORY) {
+		IV_CATEGORY = iV_CATEGORY;
+	}
+
+	public String getMINIMUM_NO_OF_BILLS() {
+		return MINIMUM_NO_OF_BILLS;
+	}
+
+	public void setMINIMUM_NO_OF_BILLS(String mINIMUM_NO_OF_BILLS) {
+		MINIMUM_NO_OF_BILLS = mINIMUM_NO_OF_BILLS;
+	}
+
+	public String getMINIMUM_ENERGY_SOLD() {
+		return MINIMUM_ENERGY_SOLD;
+	}
+
+	public void setMINIMUM_ENERGY_SOLD(String mINIMUM_ENERGY_SOLD) {
+		MINIMUM_ENERGY_SOLD = mINIMUM_ENERGY_SOLD;
+	}
+
+	public String getMINIMUM_BILLED_AMT() {
+		return MINIMUM_BILLED_AMT;
+	}
+
+	public void setMINIMUM_BILLED_AMT(String mINIMUM_BILLED_AMT) {
+		MINIMUM_BILLED_AMT = mINIMUM_BILLED_AMT;
+	}
+
+	@Override
+	public String toString() {
+		return "dpd_MOD_ACC_REC_CAT_REPORT5 [LOCATION_CODE=" + LOCATION_CODE + ", LOCATION_NAME=" + LOCATION_NAME
+				+ ", CIRCLE_DESC=" + CIRCLE_DESC + ", RAO_NAME=" + RAO_NAME + ", BILL_CYCLE_CODE=" + BILL_CYCLE_CODE
+				+ ", BILL_MONTH=" + BILL_MONTH + ", USAFE_CAT_NAME=" + USAFE_CAT_NAME + ", CATEGORY=" + CATEGORY
+				+ ", IV_CATEGORY=" + IV_CATEGORY + ", MINIMUM_NO_OF_BILLS=" + MINIMUM_NO_OF_BILLS
+				+ ", MINIMUM_ENERGY_SOLD=" + MINIMUM_ENERGY_SOLD + ", MINIMUM_BILLED_AMT=" + MINIMUM_BILLED_AMT + "]";
+	}
+}
